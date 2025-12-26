@@ -1,0 +1,4 @@
+C:/FullIron/build/CMakeFiles/glad.dir
+C:/FullIron/build/CMakeFiles/FullIron.dir
+C:/FullIron/build/CMakeFiles/ALL_BUILD.dir
+C:/FullIron/build/CMakeFiles/ZERO_CHECK.dir
