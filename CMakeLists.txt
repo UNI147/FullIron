@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(FullIron)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Исправляем пути
 set(GLFW_DIR "C:/FullIron/include/glfw-3.3.8.bin.WIN64")
 
 # Ищем OpenGL
@@ -76,8 +76,20 @@ endif()
 # Основные директории включения
 target_include_directories(FullIron PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/glad  # добавляем директорию glad
+    ${CMAKE_CURRENT_SOURCE_DIR}/glad
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
+# Выходная директория для исполняемого файла
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Debug)
+
+# Копирование шейдеров в ту же директорию, где будет исполняемый файл
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/shaders")
+    file(COPY shaders/ DESTINATION ${CMAKE_BINARY_DIR}/Debug/shaders)
+    message(STATUS "Shaders copied to: ${CMAKE_BINARY_DIR}/Debug/shaders")
+else()
+    message(WARNING "Shaders directory not found at: ${CMAKE_CURRENT_SOURCE_DIR}/shaders")
+endif()
 
 # Линковка библиотек
 target_link_libraries(FullIron 
@@ -88,8 +100,15 @@ target_link_libraries(FullIron
     glad
 )
 
-# Копирование ресурсов
-file(COPY resources/ DESTINATION ${CMAKE_BINARY_DIR}/bin/resources)
+# Копирование ресурсов в ту же директорию, где будет исполняемый файл
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/resources")
+    file(COPY resources/ DESTINATION ${CMAKE_BINARY_DIR}/Debug/resources)
+    message(STATUS "Resources copied: ${CMAKE_CURRENT_SOURCE_DIR}/resources -> ${CMAKE_BINARY_DIR}/Debug/resources")
+else()
+    message(WARNING "Resources directory not found at: ${CMAKE_CURRENT_SOURCE_DIR}/resources")
+endif()
 
-# Выходная директория
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+# Создаем выходную директорию если она не существует
+if(NOT EXISTS "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+    file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+endif()

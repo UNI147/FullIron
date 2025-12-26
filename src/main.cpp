@@ -1,43 +1,64 @@
 #include <iostream>
 #include <windows.h>
-#include <gl/gl.h>
-#include <gl/glu.h>
-#include <cmath>
+#include "Shader.h"
+#include "Tetrahedron.h"
+#include "Texture.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "glad.h"
 
 #pragma comment(lib, "opengl32.lib")
-#pragma comment(lib, "glu32.lib")
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
-// Объявляем глобальные переменные
-HWND hWnd;      // Дескриптор окна
-HDC hDC;        // Контекст устройства
-HGLRC hRC;      // Контекст OpenGL
+// Объявляем глобальные переменные с префиксом g_
+HWND g_hWnd = nullptr;
+HDC g_hDC = nullptr;
+HGLRC g_hRC = nullptr;
 
-// Простая структура для 3D точки
-struct Vector3 {
-    float x, y, z;
-    Vector3(float _x = 0, float _y = 0, float _z = 0) : x(_x), y(_y), z(_z) {}
-};
+Shader* g_shader = nullptr;
+Tetrahedron* g_tetrahedron = nullptr;
+Texture* g_texture = nullptr;
 
-// Вершины тетраэдра
-Vector3 tetraVertices[4] = {
-    Vector3(0.0f, 0.5f, 0.0f),    // Верх
-    Vector3(-0.5f, -0.5f, -0.5f), // Основание 1
-    Vector3(0.5f, -0.5f, -0.5f),  // Основание 2
-    Vector3(0.0f, -0.5f, 0.5f)    // Основание 3
-};
+float g_lastTime = 0.0f;
 
-// Грани тетраэдра
-int tetraFaces[4][3] = {
-    {0, 1, 2},
-    {0, 2, 3},
-    {0, 3, 1},
-    {1, 3, 2}
-};
+// Объявляем глобальные матрицы ДО их использования
+glm::mat4 g_model = glm::mat4(1.0f);
+glm::mat4 g_view = glm::mat4(1.0f);
+glm::mat4 g_projection = glm::mat4(1.0f);
 
-float rotationAngle = 0.0f;
+// Объявляем функции ДО их использования
+void UpdateMatrices();
+void InitOpenGL();
+void Render(float deltaTime);
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+// Определяем UpdateMatrices ДО функции Render
+void UpdateMatrices() {
+    if (!g_tetrahedron) return;
+    
+    // Модельная матрица (вращение)
+    g_model = glm::mat4(1.0f);
+    g_model = glm::rotate(g_model, glm::radians(g_tetrahedron->getRotationAngle()), 
+                          glm::vec3(0.0f, 1.0f, 0.0f));
+    
+    // Видовая матрица (камера)
+    g_view = glm::lookAt(
+        glm::vec3(2.0f, 2.0f, 2.0f), // позиция камеры
+        glm::vec3(0.0f, 0.0f, 0.0f), // цель камеры
+        glm::vec3(0.0f, 1.0f, 0.0f)  // вектор "вверх"
+    );
+    
+    // Матрица проекции
+    g_projection = glm::perspective(
+        glm::radians(45.0f), // поле зрения
+        (float)WIDTH / (float)HEIGHT, // соотношение сторон
+        0.1f, 100.0f // ближняя и дальняя плоскости
+    );
+}
 
 // Инициализация OpenGL
 void InitOpenGL() {
@@ -55,71 +76,74 @@ void InitOpenGL() {
         0, 0, 0, 0
     };
     
-    int pixelFormat = ChoosePixelFormat(hDC, &pfd);
-    SetPixelFormat(hDC, pixelFormat, &pfd);
-    hRC = wglCreateContext(hDC);
-    wglMakeCurrent(hDC, hRC);
+    int pixelFormat = ChoosePixelFormat(g_hDC, &pfd);
+    SetPixelFormat(g_hDC, pixelFormat, &pfd);
+    g_hRC = wglCreateContext(g_hDC);
+    wglMakeCurrent(g_hDC, g_hRC);
+    
+    if (!gladLoadGL()) {
+        if (!gladLoadGLLoader((GLADloadproc)wglGetProcAddress)) {
+            std::cerr << "Failed to initialize GLAD" << std::endl;
+            return;
+        }
+    }
+    
+    // Проверяем версию OpenGL
+    std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+    std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
     
     // Настройки OpenGL
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glEnable(GL_DEPTH_TEST);
-    glShadeModel(GL_SMOOTH);
-}
-
-// Отрисовка тетраэдра
-void DrawTetrahedron() {
-    glPushMatrix();
-    glRotatef(rotationAngle, 0.5f, 1.0f, 0.0f);
     
-    // Рисуем каждую грань разным цветом
-    GLfloat colors[4][3] = {
-        {1.0f, 0.0f, 0.0f}, // Красный
-        {0.0f, 1.0f, 0.0f}, // Зеленый
-        {0.0f, 0.0f, 1.0f}, // Синий
-        {1.0f, 1.0f, 0.0f}  // Желтый
-    };
-    
-    for (int i = 0; i < 4; i++) {
-        glColor3fv(colors[i]);
-        glBegin(GL_TRIANGLES);
-        for (int j = 0; j < 3; j++) {
-            Vector3 v = tetraVertices[tetraFaces[i][j]];
-            glVertex3f(v.x, v.y, v.z);
-        }
-        glEnd();
+    // Создаем шейдер, тетраэдр и текстуру
+    try {
+        g_shader = new Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+        g_tetrahedron = new Tetrahedron();
+        g_texture = new Texture("resources/metalplate.png");
+    } catch (const std::exception& e) {
+        std::cerr << "Failed to initialize: " << e.what() << std::endl;
     }
-    
-    glPopMatrix();
 }
 
 // Отрисовка сцены
-void Render() {
+void Render(float deltaTime) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.0f, (GLfloat)WIDTH/(GLfloat)HEIGHT, 0.1f, 100.0f);
+    // Обновляем тетраэдр
+    if (g_tetrahedron) {
+        g_tetrahedron->update(deltaTime);
+        UpdateMatrices();
+    }
     
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(2.0f, 2.0f, 2.0f,  // Позиция камеры
-              0.0f, 0.0f, 0.0f,  // Точка взгляда
-              0.0f, 1.0f, 0.0f); // Вектор "вверх"
+    // Используем шейдер
+    if (g_shader && g_tetrahedron && g_texture) {
+        g_shader->use();
+        
+        // Передаем матрицы в шейдер
+        glm::mat4 mvp = g_projection * g_view * g_model;
+        g_shader->setMat4("mvp", glm::value_ptr(mvp));
+        
+        g_texture->bind(0);
+        g_shader->setInt("texture1", 0);
+        g_tetrahedron->draw();
+    }
     
-    DrawTetrahedron();
-    
-    SwapBuffers(hDC);
+    SwapBuffers(g_hDC);
 }
 
-// Обработчик сообщений Windows
+// Простой обработчик сообщений
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch(uMsg) {
         case WM_CLOSE:
             PostQuitMessage(0);
             return 0;
-        case WM_SIZE:
-            glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
+        case WM_SIZE: {
+            int width = LOWORD(lParam);
+            int height = HIWORD(lParam);
+            glViewport(0, 0, width, height);
             return 0;
+        }
     }
     return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
@@ -128,27 +152,29 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                    LPSTR lpCmdLine, int nCmdShow) {
     (void)hPrevInstance;
     (void)lpCmdLine;
+    
     // Регистрация класса окна
     WNDCLASS wc = {};
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = "FullIronWindow";
+    wc.lpszClassName = "TetrahedronWindow";
     wc.style = CS_OWNDC;
     RegisterClass(&wc);
     
     // Создание окна
-    HWND hWndLocal = CreateWindow("FullIronWindow", "FullIron - 3D Tetrahedron",
+    g_hWnd = CreateWindow("TetrahedronWindow", "FullIron",
                         WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
                         WIDTH, HEIGHT, NULL, NULL, hInstance, NULL);
-    hWnd = hWndLocal;
     
-    hDC = GetDC(hWnd);
+    g_hDC = GetDC(g_hWnd);
     InitOpenGL();
-    ShowWindow(hWnd, nCmdShow);
-    UpdateWindow(hWnd);
+    ShowWindow(g_hWnd, nCmdShow);
+    UpdateWindow(g_hWnd);
     
     // Основной цикл
     MSG msg = {};
+    g_lastTime = static_cast<float>(GetTickCount()) / 1000.0f;
+    
     while(true) {
         if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
             if(msg.message == WM_QUIT)
@@ -156,17 +182,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         } else {
-            rotationAngle += 0.5f;
-            if(rotationAngle > 360.0f) rotationAngle -= 360.0f;
-            Render();
+            float currentTime = static_cast<float>(GetTickCount()) / 1000.0f;
+            float deltaTime = currentTime - g_lastTime;
+            g_lastTime = currentTime;
+            
+            Render(deltaTime);
             Sleep(16); // ~60 FPS
         }
     }
     
     // Очистка
+    delete g_shader;
+    delete g_tetrahedron;
+    delete g_texture;
+    
     wglMakeCurrent(NULL, NULL);
-    wglDeleteContext(hRC);
-    ReleaseDC(hWnd, hDC);
+    wglDeleteContext(g_hRC);
+    ReleaseDC(g_hWnd, g_hDC);
     
     return 0;
 }

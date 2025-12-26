@@ -12,6 +12,7 @@ public:
     void draw() const;
     void update(float deltaTime);
     void setRotationSpeed(float speed) { rotationSpeed = speed; }
+    float getRotationAngle() const { return rotationAngle; }
     
 private:
     GLuint VAO, VBO, EBO;

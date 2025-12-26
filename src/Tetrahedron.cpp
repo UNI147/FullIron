@@ -1,7 +1,7 @@
 #include "Tetrahedron.h"
 #include <cmath>
 
-Tetrahedron::Tetrahedron() : rotationAngle(0.0f), rotationSpeed(50.0f) {
+Tetrahedron::Tetrahedron() : rotationAngle(0.0f), rotationSpeed(30.0f) {
     setupBuffers();
 }
 
@@ -12,19 +12,20 @@ Tetrahedron::~Tetrahedron() {
 }
 
 void Tetrahedron::setupBuffers() {
-    // Вершины тетраэдра (нормализованные координаты)
+    // Вершины тетраэдра (4 вершины)
     float vertices[] = {
-        // Позиции           // Текстурные координаты  // Нормали
-        // Основание
-        0.0f,  0.5f,  0.0f,  0.5f, 1.0f,              0.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f, 0.0f,  0.0f, 0.0f,              0.0f, 0.0f, 1.0f,
-        0.5f, -0.5f,  0.0f,  1.0f, 0.0f,              0.0f, 0.0f, 1.0f,
-        
-        // Вершина
-        0.0f,  0.0f,  0.8f,  0.5f, 0.5f,              0.0f, 1.0f, 0.0f,
+        // Позиции (x, y, z)     // Текстурные координаты (u, v)
+        // Вершина 0
+        -0.5f, -0.5f, -0.5f,     0.0f, 0.0f,
+        // Вершина 1
+        0.5f, -0.5f, -0.5f,      1.0f, 0.0f,
+        // Вершина 2
+        0.0f, -0.5f, 0.5f,       0.5f, 0.5f,
+        // Вершина 3 (верхняя)
+        0.0f, 0.5f, 0.0f,        0.5f, 1.0f,
     };
     
-    // Индексы для треугольников
+    // Индексы для 4 треугольников (тетраэдр)
     unsigned int indices[] = {
         // Основание
         0, 1, 2,
@@ -46,24 +47,21 @@ void Tetrahedron::setupBuffers() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     
-    // Позиции
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    // Позиции (атрибут 0)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     
-    // Текстурные координаты
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    // Текстурные координаты (атрибут 1)
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 
+                         (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    
-    // Нормали
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
-    glEnableVertexAttribArray(2);
     
     glBindVertexArray(0);
 }
 
 void Tetrahedron::draw() const {
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0); // 4 треугольника * 3 вершины = 12
     glBindVertexArray(0);
 }
 

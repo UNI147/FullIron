@@ -3,9 +3,6 @@
 
 #include <string>
 #include "glad.h"
-#ifndef USE_SIMPLE_OPENGL
-#include <GLFW/glfw3.h>
-#endif
 
 class Shader {
 public:
@@ -13,7 +10,8 @@ public:
     ~Shader();
     
     void use();
-    void setMat4(const std::string &name, const GLfloat* value) const;
+    void setMat4(const std::string &name, const float* value) const;
+    void setInt(const std::string &name, int value) const;
     GLuint getID() const { return ID; }
     
 private:

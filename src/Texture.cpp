@@ -18,11 +18,26 @@ Texture::Texture(const std::string& path) {
     unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
     
     if (data) {
-        GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
+        GLenum format;
+        if (nrChannels == 1)
+            format = GL_RED;
+        else if (nrChannels == 3)
+            format = GL_RGB;
+        else if (nrChannels == 4)
+            format = GL_RGBA;
+        else
+            format = GL_RGB;
+            
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
+        std::cout << "Texture loaded successfully: " << path << std::endl;
     } else {
         std::cerr << "Failed to load texture: " << path << std::endl;
+        // Создаем простую текстуру на случай ошибки
+        unsigned char defaultTexture[] = {
+            128, 128, 128, 255,   // серый цвет
+        };
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, defaultTexture);
     }
     
     stbi_image_free(data);
