@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MinSizeRel/FullIron.exe"
+			"path" : "Debug/FullIron.exe"
 		},
 		{
-			"path" : "MinSizeRel/FullIron.pdb"
+			"path" : "Debug/FullIron.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -91,7 +91,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG -std:c++17"
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17"
 				},
 				{
 					"backtrace" : 5,
@@ -161,11 +161,11 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 4,
 			"id" : "glad::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "FullIron::@6890427a1f51a3e7e1df",
@@ -174,11 +174,11 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG",
+				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "/machine:x64 /INCREMENTAL:NO /subsystem:windows",
+				"fragment" : "/machine:x64 /debug /INCREMENTAL /subsystem:windows",
 				"role" : "flags"
 			},
 			{
@@ -218,7 +218,7 @@
 			},
 			{
 				"backtrace" : 4,
-				"fragment" : "MinSizeRel\\glad.lib",
+				"fragment" : "Debug\\glad.lib",
 				"role" : "libraries"
 			},
 			{

@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Debug/FullIron.exe"
+			"path" : "RelWithDebInfo/FullIron.exe"
 		},
 		{
-			"path" : "Debug/FullIron.pdb"
+			"path" : "RelWithDebInfo/FullIron.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -91,7 +91,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17"
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17"
 				},
 				{
 					"backtrace" : 5,
@@ -161,11 +161,11 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 4,
 			"id" : "glad::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "FullIron::@6890427a1f51a3e7e1df",
@@ -174,7 +174,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
+				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG",
 				"role" : "flags"
 			},
 			{
@@ -218,7 +218,7 @@
 			},
 			{
 				"backtrace" : 4,
-				"fragment" : "Debug\\glad.lib",
+				"fragment" : "RelWithDebInfo\\glad.lib",
 				"role" : "libraries"
 			},
 			{
