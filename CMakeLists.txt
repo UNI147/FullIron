@@ -22,15 +22,21 @@ endif()
 set(SOURCES
     src/main.cpp
     src/Shader.cpp
-    src/Texture.cpp
     src/Tetrahedron.cpp
+    src/CLUTTexture.cpp
+    src/LowResFramebuffer.cpp
+    src/PaletteManager.cpp
+    
 )
 
 # Добавляем заголовочные файлы
 set(HEADERS
     src/Shader.h
-    src/Texture.h
     src/Tetrahedron.h
+    src/CLUTTexture.h
+    src/LowResFramebuffer.h
+    src/PaletteManager.h
+    src/GraphicsConfig.h
 )
 
 # Создаем исполняемый файл

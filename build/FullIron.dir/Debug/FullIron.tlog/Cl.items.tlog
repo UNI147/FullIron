@@ -1,4 +1,6 @@
 C:\FullIron\src\main.cpp;C:\FullIron\build\FullIron.dir\Debug\main.obj
 C:\FullIron\src\Shader.cpp;C:\FullIron\build\FullIron.dir\Debug\Shader.obj
-C:\FullIron\src\Texture.cpp;C:\FullIron\build\FullIron.dir\Debug\Texture.obj
 C:\FullIron\src\Tetrahedron.cpp;C:\FullIron\build\FullIron.dir\Debug\Tetrahedron.obj
+C:\FullIron\src\CLUTTexture.cpp;C:\FullIron\build\FullIron.dir\Debug\CLUTTexture.obj
+C:\FullIron\src\LowResFramebuffer.cpp;C:\FullIron\build\FullIron.dir\Debug\LowResFramebuffer.obj
+C:\FullIron\src\PaletteManager.cpp;C:\FullIron\build\FullIron.dir\Debug\PaletteManager.obj

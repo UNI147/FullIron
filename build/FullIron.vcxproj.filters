@@ -7,10 +7,16 @@
     <ClCompile Include="C:\FullIron\src\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\Texture.cpp">
+    <ClCompile Include="C:\FullIron\src\Tetrahedron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\Tetrahedron.cpp">
+    <ClCompile Include="C:\FullIron\src\CLUTTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\src\LowResFramebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\src\PaletteManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -18,10 +24,19 @@
     <ClInclude Include="C:\FullIron\src\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\Texture.h">
+    <ClInclude Include="C:\FullIron\src\Tetrahedron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\Tetrahedron.h">
+    <ClInclude Include="C:\FullIron\src\CLUTTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\src\LowResFramebuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\src\PaletteManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\src\GraphicsConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

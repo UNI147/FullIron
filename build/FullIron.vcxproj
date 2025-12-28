@@ -338,11 +338,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\FullIron\src\main.cpp" />
     <ClCompile Include="C:\FullIron\src\Shader.cpp" />
-    <ClCompile Include="C:\FullIron\src\Texture.cpp" />
     <ClCompile Include="C:\FullIron\src\Tetrahedron.cpp" />
+    <ClCompile Include="C:\FullIron\src\CLUTTexture.cpp" />
+    <ClCompile Include="C:\FullIron\src\LowResFramebuffer.cpp" />
+    <ClCompile Include="C:\FullIron\src\PaletteManager.cpp" />
     <ClInclude Include="C:\FullIron\src\Shader.h" />
-    <ClInclude Include="C:\FullIron\src\Texture.h" />
     <ClInclude Include="C:\FullIron\src\Tetrahedron.h" />
+    <ClInclude Include="C:\FullIron\src\CLUTTexture.h" />
+    <ClInclude Include="C:\FullIron\src\LowResFramebuffer.h" />
+    <ClInclude Include="C:\FullIron\src\PaletteManager.h" />
+    <ClInclude Include="C:\FullIron\src\GraphicsConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\FullIron\build\ZERO_CHECK.vcxproj">
