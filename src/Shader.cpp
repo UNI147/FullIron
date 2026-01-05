@@ -3,7 +3,6 @@
 #include <sstream>
 #include <iostream>
 #include <filesystem>
-#include <glm/glm.hpp>
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     std::cout << "Loading shaders from: " << vertexPath << " and " << fragmentPath << std::endl;
@@ -105,7 +104,7 @@ void Shader::setMat4(const std::string &name, const float* value) const {
     }
 }
 
-// НОВЫЙ МЕТОД: принимает указатель на glm::mat4
+// Реализация setMat4GLM
 void Shader::setMat4GLM(const std::string &name, const void* glmMatrix) const {
     GLint location = glGetUniformLocation(ID, name.c_str());
     if (location != -1) {

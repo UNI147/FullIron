@@ -24,7 +24,7 @@ events:
       The output was:
       0
       ╨Т╨╡╤А╤Б╨╕╤П MSBuild 17.13.19+0d9f5a35a ╨┤╨╗╤П .NET Framework
-      ╨б╨▒╨╛╤А╨║╨░ ╨╜╨░╤З╨░╤В╨░ 05.01.2026 21:39:11.
+      ╨б╨▒╨╛╤А╨║╨░ ╨╜╨░╤З╨░╤В╨░ 05.01.2026 22:44:47.
       
       ╨Я╤А╨╛╨╡╨║╤В "C:\\FullIron\\build\\CMakeFiles\\3.30.5-msvc23\\CompilerIdC\\CompilerIdC.vcxproj" ╨▓ ╤Г╨╖╨╗╨╡ 1 (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
       PrepareForBuild:
@@ -62,7 +62,7 @@ events:
           ╨Я╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╨╣: 0
           ╨Ю╤И╨╕╨▒╨╛╨║: 0
       
-      ╨Я╤А╨╛╤И╨╗╨╛ ╨▓╤А╨╡╨╝╨╡╨╜╨╕ 00:00:13.73
+      ╨Я╤А╨╛╤И╨╗╨╛ ╨▓╤А╨╡╨╝╨╡╨╜╨╕ 00:00:16.35
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -88,7 +88,7 @@ events:
       The output was:
       0
       ╨Т╨╡╤А╤Б╨╕╤П MSBuild 17.13.19+0d9f5a35a ╨┤╨╗╤П .NET Framework
-      ╨б╨▒╨╛╤А╨║╨░ ╨╜╨░╤З╨░╤В╨░ 05.01.2026 21:39:28.
+      ╨б╨▒╨╛╤А╨║╨░ ╨╜╨░╤З╨░╤В╨░ 05.01.2026 22:45:07.
       
       ╨Я╤А╨╛╨╡╨║╤В "C:\\FullIron\\build\\CMakeFiles\\3.30.5-msvc23\\CompilerIdCXX\\CompilerIdCXX.vcxproj" ╨▓ ╤Г╨╖╨╗╨╡ 1 (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
       PrepareForBuild:
@@ -126,7 +126,7 @@ events:
           ╨Я╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╨╣: 0
           ╨Ю╤И╨╕╨▒╨╛╨║: 0
       
-      ╨Я╤А╨╛╤И╨╗╨╛ ╨▓╤А╨╡╨╝╨╡╨╜╨╕ 00:00:13.62
+      ╨Я╤А╨╛╤И╨╗╨╛ ╨▓╤А╨╡╨╝╨╡╨╜╨╕ 00:00:15.40
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -145,8 +145,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-abn2bi"
-      binary: "C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-abn2bi"
+      source: "C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-qvsp4a"
+      binary: "C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-qvsp4a"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
       CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -155,49 +155,49 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-abn2bi'
+        Change Dir: 'C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-qvsp4a'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_8715a.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_f30a9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         ╨Т╨╡╤А╤Б╨╕╤П MSBuild 17.13.19+0d9f5a35a ╨┤╨╗╤П .NET Framework
-        ╨б╨▒╨╛╤А╨║╨░ ╨╜╨░╤З╨░╤В╨░ 05.01.2026 21:39:44.
+        ╨б╨▒╨╛╤А╨║╨░ ╨╜╨░╤З╨░╤В╨░ 05.01.2026 22:45:25.
         
-        ╨Я╤А╨╛╨╡╨║╤В "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abn2bi\\cmTC_8715a.vcxproj" ╨▓ ╤Г╨╖╨╗╨╡ 1 (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
+        ╨Я╤А╨╛╨╡╨║╤В "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qvsp4a\\cmTC_f30a9.vcxproj" ╨▓ ╤Г╨╖╨╗╨╡ 1 (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
         PrepareForBuild:
-          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "cmTC_8715a.dir\\Debug\\".
+          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "cmTC_f30a9.dir\\Debug\\".
           ╨б╤В╤А╤Г╨║╤В╤Г╤А╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╣ ╨▓╤Л╨▓╨╛╨┤ ╨▓╨║╨╗╤О╤З╨╡╨╜. ╨д╨╛╤А╨╝╨░╤В╨╕╤А╨╛╨▓╨░╨╜╨╕╨╡ ╨┤╨╕╨░╨│╨╜╨╛╤Б╤В╨╕╨║╨╕ ╨║╨╛╨╝╨┐╨╕╨╗╤П╤В╨╛╤А╨░ ╨▒╤Г╨┤╨╡╤В ╨╛╤В╤А╨░╨╢╨░╤В╤М ╨╕╨╡╤А╨░╤А╤Е╨╕╤О ╨╛╤И╨╕╨▒╨╛╨║. ╨Я╨╛╨┤╤А╨╛╨▒╨╜╨╡╨╡ ╤Б╨╝. https://aka.ms/cpp/structured-output.
-          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abn2bi\\Debug\\".
-          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "cmTC_8715a.dir\\Debug\\cmTC_8715a.tlog\\".
+          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qvsp4a\\Debug\\".
+          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "cmTC_f30a9.dir\\Debug\\cmTC_f30a9.tlog\\".
         InitializeBuildStatus:
-          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ "cmTC_8715a.dir\\Debug\\cmTC_8715a.tlog\\unsuccessfulbuild", ╤В╨░╨║ ╨║╨░╨║ ╨▒╤Л╨╗╨╛ ╨╖╨░╨┤╨░╨╜╨╛ "AlwaysCreate".
-          ╨Ю╨▒╤А╨░╤Й╨╡╨╜╨╕╨╡ ╨║ "cmTC_8715a.dir\\Debug\\cmTC_8715a.tlog\\unsuccessfulbuild".
+          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ "cmTC_f30a9.dir\\Debug\\cmTC_f30a9.tlog\\unsuccessfulbuild", ╤В╨░╨║ ╨║╨░╨║ ╨▒╤Л╨╗╨╛ ╨╖╨░╨┤╨░╨╜╨╛ "AlwaysCreate".
+          ╨Ю╨▒╤А╨░╤Й╨╡╨╜╨╕╨╡ ╨║ "cmTC_f30a9.dir\\Debug\\cmTC_f30a9.tlog\\unsuccessfulbuild".
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "C:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Debug"
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_8715a.dir\\Debug\\\\" /Fd"cmTC_8715a.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f30a9.dir\\Debug\\\\" /Fd"cmTC_f30a9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c"
           ╨Ю╨┐╤В╨╕╨╝╨╕╨╖╨╕╤А╤Г╤О╤Й╨╕╨╣ ╨║╨╛╨╝╨┐╨╕╨╗╤П╤В╨╛╤А Microsoft (R) C/C++ ╨▓╨╡╤А╤Б╨╕╨╕ 19.43.34810 ╨┤╨╗╤П x64
           (C) ╨Ъ╨╛╤А╨┐╨╛╤А╨░╤Ж╨╕╤П ╨Ь╨░╨╣╨║╤А╨╛╤Б╨╛╤Д╤В (Microsoft Corporation).  ╨Т╤Б╨╡ ╨┐╤А╨░╨▓╨░ ╨╖╨░╤Й╨╕╤Й╨╡╨╜╤Л.
-          cl /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_8715a.dir\\Debug\\\\" /Fd"cmTC_8715a.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c"
+          cl /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f30a9.dir\\Debug\\\\" /Fd"cmTC_f30a9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abn2bi\\Debug\\cmTC_8715a.exe" /INCREMENTAL /ILK:"cmTC_8715a.dir\\Debug\\cmTC_8715a.ilk" /NOLOGO /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-abn2bi/Debug/cmTC_8715a.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-abn2bi/Debug/cmTC_8715a.lib" /MACHINE:X64  /machine:x64 cmTC_8715a.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_8715a.vcxproj -> C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abn2bi\\Debug\\cmTC_8715a.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qvsp4a\\Debug\\cmTC_f30a9.exe" /INCREMENTAL /ILK:"cmTC_f30a9.dir\\Debug\\cmTC_f30a9.ilk" /NOLOGO /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-qvsp4a/Debug/cmTC_f30a9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-qvsp4a/Debug/cmTC_f30a9.lib" /MACHINE:X64  /machine:x64 cmTC_f30a9.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_f30a9.vcxproj -> C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qvsp4a\\Debug\\cmTC_f30a9.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abn2bi\\Debug\\cmTC_8715a.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_8715a.dir\\Debug\\cmTC_8715a.tlog\\cmTC_8715a.write.1u.tlog" "cmTC_8715a.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qvsp4a\\Debug\\cmTC_f30a9.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_f30a9.dir\\Debug\\cmTC_f30a9.tlog\\cmTC_f30a9.write.1u.tlog" "cmTC_f30a9.dir\\Debug\\vcpkg.applocal.log"
           "pwsh.exe" ╨╜╨╡ ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨▓╨╜╤Г╤В╤А╨╡╨╜╨╜╨╡╨╣ ╨╕╨╗╨╕ ╨▓╨╜╨╡╤И╨╜╨╡╨╣
           ╨║╨╛╨╝╨░╨╜╨┤╨╛╨╣, ╨╕╤Б╨┐╨╛╨╗╨╜╤П╨╡╨╝╨╛╨╣ ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨╛╨╣ ╨╕╨╗╨╕ ╨┐╨░╨║╨╡╤В╨╜╤Л╨╝ ╤Д╨░╨╣╨╗╨╛╨╝.
-          ╨Т╤Л╤Е╨╛╨┤ ╨╕╨╖ ╨║╨╛╨╝╨░╨╜╨┤╤Л "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abn2bi\\Debug\\cmTC_8715a.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_8715a.dir\\Debug\\cmTC_8715a.tlog\\cmTC_8715a.write.1u.tlog" "cmTC_8715a.dir\\Debug\\vcpkg.applocal.log"" ╤Б ╨║╨╛╨┤╨╛╨╝ 9009.
-          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abn2bi\\Debug\\cmTC_8715a.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_8715a.dir\\Debug\\cmTC_8715a.tlog\\cmTC_8715a.write.1u.tlog" "cmTC_8715a.dir\\Debug\\vcpkg.applocal.log"
+          ╨Т╤Л╤Е╨╛╨┤ ╨╕╨╖ ╨║╨╛╨╝╨░╨╜╨┤╤Л "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qvsp4a\\Debug\\cmTC_f30a9.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_f30a9.dir\\Debug\\cmTC_f30a9.tlog\\cmTC_f30a9.write.1u.tlog" "cmTC_f30a9.dir\\Debug\\vcpkg.applocal.log"" ╤Б ╨║╨╛╨┤╨╛╨╝ 9009.
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qvsp4a\\Debug\\cmTC_f30a9.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_f30a9.dir\\Debug\\cmTC_f30a9.tlog\\cmTC_f30a9.write.1u.tlog" "cmTC_f30a9.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          ╨д╨░╨╣╨╗ "cmTC_8715a.dir\\Debug\\cmTC_8715a.tlog\\unsuccessfulbuild" ╤Г╨┤╨░╨╗╤П╨╡╤В╤Б╤П.
-          ╨Ю╨▒╤А╨░╤Й╨╡╨╜╨╕╨╡ ╨║ "cmTC_8715a.dir\\Debug\\cmTC_8715a.tlog\\cmTC_8715a.lastbuildstate".
-        ╨б╨▒╨╛╤А╨║╨░ ╨┐╤А╨╛╨╡╨║╤В╨░ "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abn2bi\\cmTC_8715a.vcxproj" ╨╖╨░╨▓╨╡╤А╤И╨╡╨╜╨░ (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
+          ╨д╨░╨╣╨╗ "cmTC_f30a9.dir\\Debug\\cmTC_f30a9.tlog\\unsuccessfulbuild" ╤Г╨┤╨░╨╗╤П╨╡╤В╤Б╤П.
+          ╨Ю╨▒╤А╨░╤Й╨╡╨╜╨╕╨╡ ╨║ "cmTC_f30a9.dir\\Debug\\cmTC_f30a9.tlog\\cmTC_f30a9.lastbuildstate".
+        ╨б╨▒╨╛╤А╨║╨░ ╨┐╤А╨╛╨╡╨║╤В╨░ "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qvsp4a\\cmTC_f30a9.vcxproj" ╨╖╨░╨▓╨╡╤А╤И╨╡╨╜╨░ (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
         
         ╨б╨▒╨╛╤А╨║╨░ ╤Г╤Б╨┐╨╡╤И╨╜╨╛ ╨╖╨░╨▓╨╡╤А╤И╨╡╨╜╨░.
             ╨Я╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╨╣: 0
             ╨Ю╤И╨╕╨▒╨╛╨║: 0
         
-        ╨Я╤А╨╛╤И╨╗╨╛ ╨▓╤А╨╡╨╝╨╡╨╜╨╕ 00:00:12.50
+        ╨Я╤А╨╛╤И╨╗╨╛ ╨▓╤А╨╡╨╝╨╡╨╜╨╕ 00:00:12.03
         
       exitCode: 0
   -
@@ -237,8 +237,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-d7ep7o"
-      binary: "C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-d7ep7o"
+      source: "C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-y9d9qe"
+      binary: "C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-y9d9qe"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -248,49 +248,49 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-d7ep7o'
+        Change Dir: 'C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-y9d9qe'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_5c04e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b6724.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         ╨Т╨╡╤А╤Б╨╕╤П MSBuild 17.13.19+0d9f5a35a ╨┤╨╗╤П .NET Framework
-        ╨б╨▒╨╛╤А╨║╨░ ╨╜╨░╤З╨░╤В╨░ 05.01.2026 21:40:00.
+        ╨б╨▒╨╛╤А╨║╨░ ╨╜╨░╤З╨░╤В╨░ 05.01.2026 22:45:41.
         
-        ╨Я╤А╨╛╨╡╨║╤В "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d7ep7o\\cmTC_5c04e.vcxproj" ╨▓ ╤Г╨╖╨╗╨╡ 1 (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
+        ╨Я╤А╨╛╨╡╨║╤В "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-y9d9qe\\cmTC_b6724.vcxproj" ╨▓ ╤Г╨╖╨╗╨╡ 1 (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
         PrepareForBuild:
-          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "cmTC_5c04e.dir\\Debug\\".
+          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "cmTC_b6724.dir\\Debug\\".
           ╨б╤В╤А╤Г╨║╤В╤Г╤А╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╣ ╨▓╤Л╨▓╨╛╨┤ ╨▓╨║╨╗╤О╤З╨╡╨╜. ╨д╨╛╤А╨╝╨░╤В╨╕╤А╨╛╨▓╨░╨╜╨╕╨╡ ╨┤╨╕╨░╨│╨╜╨╛╤Б╤В╨╕╨║╨╕ ╨║╨╛╨╝╨┐╨╕╨╗╤П╤В╨╛╤А╨░ ╨▒╤Г╨┤╨╡╤В ╨╛╤В╤А╨░╨╢╨░╤В╤М ╨╕╨╡╤А╨░╤А╤Е╨╕╤О ╨╛╤И╨╕╨▒╨╛╨║. ╨Я╨╛╨┤╤А╨╛╨▒╨╜╨╡╨╡ ╤Б╨╝. https://aka.ms/cpp/structured-output.
-          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d7ep7o\\Debug\\".
-          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "cmTC_5c04e.dir\\Debug\\cmTC_5c04e.tlog\\".
+          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-y9d9qe\\Debug\\".
+          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░ "cmTC_b6724.dir\\Debug\\cmTC_b6724.tlog\\".
         InitializeBuildStatus:
-          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ "cmTC_5c04e.dir\\Debug\\cmTC_5c04e.tlog\\unsuccessfulbuild", ╤В╨░╨║ ╨║╨░╨║ ╨▒╤Л╨╗╨╛ ╨╖╨░╨┤╨░╨╜╨╛ "AlwaysCreate".
-          ╨Ю╨▒╤А╨░╤Й╨╡╨╜╨╕╨╡ ╨║ "cmTC_5c04e.dir\\Debug\\cmTC_5c04e.tlog\\unsuccessfulbuild".
+          ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ "cmTC_b6724.dir\\Debug\\cmTC_b6724.tlog\\unsuccessfulbuild", ╤В╨░╨║ ╨║╨░╨║ ╨▒╤Л╨╗╨╛ ╨╖╨░╨┤╨░╨╜╨╛ "AlwaysCreate".
+          ╨Ю╨▒╤А╨░╤Й╨╡╨╜╨╕╨╡ ╨║ "cmTC_b6724.dir\\Debug\\cmTC_b6724.tlog\\unsuccessfulbuild".
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "C:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Debug"
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_5c04e.dir\\Debug\\\\" /Fd"cmTC_5c04e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.30\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b6724.dir\\Debug\\\\" /Fd"cmTC_b6724.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.30\\Modules\\CMakeCXXCompilerABI.cpp"
           ╨Ю╨┐╤В╨╕╨╝╨╕╨╖╨╕╤А╤Г╤О╤Й╨╕╨╣ ╨║╨╛╨╝╨┐╨╕╨╗╤П╤В╨╛╤А Microsoft (R) C/C++ ╨▓╨╡╤А╤Б╨╕╨╕ 19.43.34810 ╨┤╨╗╤П x64
           (C) ╨Ъ╨╛╤А╨┐╨╛╤А╨░╤Ж╨╕╤П ╨Ь╨░╨╣╨║╤А╨╛╤Б╨╛╤Д╤В (Microsoft Corporation).  ╨Т╤Б╨╡ ╨┐╤А╨░╨▓╨░ ╨╖╨░╤Й╨╕╤Й╨╡╨╜╤Л.
-          cl /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_5c04e.dir\\Debug\\\\" /Fd"cmTC_5c04e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.30\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b6724.dir\\Debug\\\\" /Fd"cmTC_b6724.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.30\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d7ep7o\\Debug\\cmTC_5c04e.exe" /INCREMENTAL /ILK:"cmTC_5c04e.dir\\Debug\\cmTC_5c04e.ilk" /NOLOGO /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-d7ep7o/Debug/cmTC_5c04e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-d7ep7o/Debug/cmTC_5c04e.lib" /MACHINE:X64  /machine:x64 cmTC_5c04e.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_5c04e.vcxproj -> C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d7ep7o\\Debug\\cmTC_5c04e.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-y9d9qe\\Debug\\cmTC_b6724.exe" /INCREMENTAL /ILK:"cmTC_b6724.dir\\Debug\\cmTC_b6724.ilk" /NOLOGO /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-y9d9qe/Debug/cmTC_b6724.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/FullIron/build/CMakeFiles/CMakeScratch/TryCompile-y9d9qe/Debug/cmTC_b6724.lib" /MACHINE:X64  /machine:x64 cmTC_b6724.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_b6724.vcxproj -> C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-y9d9qe\\Debug\\cmTC_b6724.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d7ep7o\\Debug\\cmTC_5c04e.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_5c04e.dir\\Debug\\cmTC_5c04e.tlog\\cmTC_5c04e.write.1u.tlog" "cmTC_5c04e.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-y9d9qe\\Debug\\cmTC_b6724.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_b6724.dir\\Debug\\cmTC_b6724.tlog\\cmTC_b6724.write.1u.tlog" "cmTC_b6724.dir\\Debug\\vcpkg.applocal.log"
           "pwsh.exe" ╨╜╨╡ ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨▓╨╜╤Г╤В╤А╨╡╨╜╨╜╨╡╨╣ ╨╕╨╗╨╕ ╨▓╨╜╨╡╤И╨╜╨╡╨╣
           ╨║╨╛╨╝╨░╨╜╨┤╨╛╨╣, ╨╕╤Б╨┐╨╛╨╗╨╜╤П╨╡╨╝╨╛╨╣ ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨╛╨╣ ╨╕╨╗╨╕ ╨┐╨░╨║╨╡╤В╨╜╤Л╨╝ ╤Д╨░╨╣╨╗╨╛╨╝.
-          ╨Т╤Л╤Е╨╛╨┤ ╨╕╨╖ ╨║╨╛╨╝╨░╨╜╨┤╤Л "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d7ep7o\\Debug\\cmTC_5c04e.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_5c04e.dir\\Debug\\cmTC_5c04e.tlog\\cmTC_5c04e.write.1u.tlog" "cmTC_5c04e.dir\\Debug\\vcpkg.applocal.log"" ╤Б ╨║╨╛╨┤╨╛╨╝ 9009.
-          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d7ep7o\\Debug\\cmTC_5c04e.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_5c04e.dir\\Debug\\cmTC_5c04e.tlog\\cmTC_5c04e.write.1u.tlog" "cmTC_5c04e.dir\\Debug\\vcpkg.applocal.log"
+          ╨Т╤Л╤Е╨╛╨┤ ╨╕╨╖ ╨║╨╛╨╝╨░╨╜╨┤╤Л "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-y9d9qe\\Debug\\cmTC_b6724.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_b6724.dir\\Debug\\cmTC_b6724.tlog\\cmTC_b6724.write.1u.tlog" "cmTC_b6724.dir\\Debug\\vcpkg.applocal.log"" ╤Б ╨║╨╛╨┤╨╛╨╝ 9009.
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-y9d9qe\\Debug\\cmTC_b6724.exe" "C:\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_b6724.dir\\Debug\\cmTC_b6724.tlog\\cmTC_b6724.write.1u.tlog" "cmTC_b6724.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          ╨д╨░╨╣╨╗ "cmTC_5c04e.dir\\Debug\\cmTC_5c04e.tlog\\unsuccessfulbuild" ╤Г╨┤╨░╨╗╤П╨╡╤В╤Б╤П.
-          ╨Ю╨▒╤А╨░╤Й╨╡╨╜╨╕╨╡ ╨║ "cmTC_5c04e.dir\\Debug\\cmTC_5c04e.tlog\\cmTC_5c04e.lastbuildstate".
-        ╨б╨▒╨╛╤А╨║╨░ ╨┐╤А╨╛╨╡╨║╤В╨░ "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d7ep7o\\cmTC_5c04e.vcxproj" ╨╖╨░╨▓╨╡╤А╤И╨╡╨╜╨░ (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
+          ╨д╨░╨╣╨╗ "cmTC_b6724.dir\\Debug\\cmTC_b6724.tlog\\unsuccessfulbuild" ╤Г╨┤╨░╨╗╤П╨╡╤В╤Б╤П.
+          ╨Ю╨▒╤А╨░╤Й╨╡╨╜╨╕╨╡ ╨║ "cmTC_b6724.dir\\Debug\\cmTC_b6724.tlog\\cmTC_b6724.lastbuildstate".
+        ╨б╨▒╨╛╤А╨║╨░ ╨┐╤А╨╛╨╡╨║╤В╨░ "C:\\FullIron\\build\\CMakeFiles\\CMakeScratch\\TryCompile-y9d9qe\\cmTC_b6724.vcxproj" ╨╖╨░╨▓╨╡╤А╤И╨╡╨╜╨░ (╤Ж╨╡╨╗╨╡╨▓╤Л╨╡ ╨╛╨▒╤К╨╡╨║╤В╤Л ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О).
         
         ╨б╨▒╨╛╤А╨║╨░ ╤Г╤Б╨┐╨╡╤И╨╜╨╛ ╨╖╨░╨▓╨╡╤А╤И╨╡╨╜╨░.
             ╨Я╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╨╣: 0
             ╨Ю╤И╨╕╨▒╨╛╨║: 0
         
-        ╨Я╤А╨╛╤И╨╗╨╛ ╨▓╤А╨╡╨╝╨╡╨╜╨╕ 00:00:09.95
+        ╨Я╤А╨╛╤И╨╗╨╛ ╨▓╤А╨╡╨╝╨╡╨╜╨╕ 00:00:11.89
         
       exitCode: 0
   -

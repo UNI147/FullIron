@@ -93,14 +93,20 @@ bool InitOpenGL() {
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
     std::cout << "Internal resolution: " << INTERNAL_WIDTH << "x" << INTERNAL_HEIGHT << std::endl;
     
-    glEnable(GL_DEPTH_TEST);
+    // ОСНОВНЫЕ НАСТРОЙКИ OPENGL
     glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
     
-    // Настраиваем функции
-    g_zFightingManager.enablePrevention(true);
-    g_zFightingManager.setZBias(0.0001f);
+    glDisable(GL_DEPTH_TEST);
+    glDepthMask(GL_FALSE);
     
-    // ЖЕСТКОЕ ПРИНУДИТЕЛЬНОЕ УСТАНОВЛЕНИЕ ТОЧЕЧНОЙ ФИЛЬТРАЦИИ
+    // Blending не нужен для непрозрачных объектов
+    glDisable(GL_BLEND);
+    
+    std::cout << "Using Painter's algorithm (strict order rendering)" << std::endl;
+    
+    // УСТАНОВЛЕНИЕ ТОЧЕЧНОЙ ФИЛЬТРАЦИИ
     std::cout << "FORCING POINT SAMPLING FOR ALL TEXTURES..." << std::endl;
     
     try {
@@ -113,7 +119,7 @@ bool InitOpenGL() {
         g_tetrahedron = new Tetrahedron();
         std::cout << "Tetrahedron created successfully" << std::endl;
         
-        // Загружаем текстуру (строго с 256-цветной палитрой)
+        // Загружаем текстуру
         std::cout << "Loading texture with 256-color palette..." << std::endl;
         std::ifstream testFile("resources/metalplate.png");
         if (!testFile.good()) {
@@ -141,11 +147,6 @@ void Render() {
     g_time += 0.016f;
     g_rotationAngle = g_time * 30.0f;
     
-    // МАТРИЦА МОДЕЛИ
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(g_rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f));
-    
-    // КАМЕРА
     glm::mat4 view = glm::lookAt(
         glm::vec3(2.0f, 1.5f, 2.0f),
         glm::vec3(0.0f, 0.0f, 0.0f),
@@ -154,104 +155,78 @@ void Render() {
     
     glm::vec3 cameraPos = glm::vec3(2.0f, 1.5f, 2.0f);
     
-    // ПРОЕКЦИЯ 4:3
     glm::mat4 projection = glm::perspective(
         glm::radians(45.0f),
         static_cast<float>(INTERNAL_WIDTH) / static_cast<float>(INTERNAL_HEIGHT),
         0.1f, 100.0f
     );
     
-    // 1. РЕНДЕР ВО ФРЕЙМБУФЕР 320x240
+    // 1. РЕНДЕР ВО ФРЕЙМБУФЕР 320x240 С PAINTER'S ALGORITHM
     g_lowResFBO->beginRender();
     
     // Очистка
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
     
-    // ВКЛЮЧАЕМ PAINTER'S ALGORITHM если нужно
-    if (GraphicsConfig::USE_PAINTERS_ALGORITHM) {
-        g_zFightingManager.enablePaintersAlgorithm(true);
-        
-        // Отключаем Z-буфер и включаем смешивание
-        glDisable(GL_DEPTH_TEST);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    } else {
-        glEnable(GL_DEPTH_TEST);
-        glDisable(GL_BLEND);
-    }
+    // НАСТРАИВАЕМ OPENGL ДЛЯ PAINTER'S ALGORITHM
+    glDisable(GL_DEPTH_TEST);
+    glDepthMask(GL_FALSE);
     
-    // НАСТРАИВАЕМ SHADER
+    // Для непрозрачных объектов отключаем blending!
+    glDisable(GL_BLEND);
+    
+    // Настраиваем шейдер
     g_clutShader->use();
     
-    // Передаем матрицы
-    glm::mat4 mvp = projection * view * model;
-    g_clutShader->setMat4GLM("mvp", &mvp[0][0]);
-    g_clutShader->setMat4GLM("model", &model[0][0]);
+    // Передаем матрицы и настройки
     g_clutShader->setMat4GLM("projection", &projection[0][0]);
-    
+    g_clutShader->setMat4GLM("view", &view[0][0]);
     g_clutShader->setBool("enableVertexJitter", GraphicsConfig::ENABLE_VERTEX_JITTER);
     g_clutShader->setBool("useVertexSnapping", GraphicsConfig::ENABLE_VERTEX_JITTER);
     g_clutShader->setFloat("vertexSnapThreshold", 0.01f);
     g_clutShader->setBool("useAffineTexturing", GraphicsConfig::ENABLE_AFFINE_TEXTURING);
-    g_clutShader->setBool("enableZFightingPrevention", 
-                         GraphicsConfig::ENABLE_Z_FIGHTING_PREVENTION && !GraphicsConfig::USE_PAINTERS_ALGORITHM);
-    g_clutShader->setFloat("zBias", GraphicsConfig::Z_BIAS);
     g_clutShader->setVec3("cameraPos", cameraPos.x, cameraPos.y, cameraPos.z);
     g_clutShader->setFloat("time", g_time);
     g_clutShader->setVec2("resolution", (float)INTERNAL_WIDTH, (float)INTERNAL_HEIGHT);
-    g_clutShader->setBool("useDithering", true);
-    g_clutShader->setBool("usePaintersAlgorithm", GraphicsConfig::USE_PAINTERS_ALGORITHM);
-    g_clutShader->setFloat("depthOffset", 0.0f);
+    g_clutShader->setBool("useDithering", GraphicsConfig::ENABLE_DITHERING);
     
     // Привязываем текстуры
     g_clutTexture->bind(0);
     g_clutShader->setInt("indexTexture", 0);
     g_clutShader->setInt("paletteTexture", 1);
     
-    // УПРАВЛЕНИЕ РЕНДЕРИНГОМ
-    if (GraphicsConfig::USE_PAINTERS_ALGORITHM) {
-        std::vector<glm::mat4> objectModels;
+    // СОЗДАЕМ И СОРТИРУЕМ ОБЪЕКТЫ ПО ГЛУБИНЕ
+    std::vector<glm::mat4> objectModels;
+    
+    // Основная пирамидка - центральная
+    glm::mat4 modelMain = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+    modelMain = glm::rotate(modelMain, glm::radians(g_rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f));
+    modelMain = glm::scale(modelMain, glm::vec3(1.0f));
+    objectModels.push_back(modelMain);
+    
+    // Вторая пирамидка - справа и ближе к камере
+    glm::mat4 modelRight = glm::translate(glm::mat4(1.0f), glm::vec3(1.5f, 0.0f, 0.5f));
+    modelRight = glm::rotate(modelRight, glm::radians(g_rotationAngle * 0.7f), glm::vec3(0.0f, 1.0f, 0.0f));
+    modelRight = glm::scale(modelRight, glm::vec3(0.8f));
+    objectModels.push_back(modelRight);
+    
+    // Третья пирамидка - слева и дальше от камеры
+    glm::mat4 modelLeft = glm::translate(glm::mat4(1.0f), glm::vec3(-1.5f, 0.3f, -0.8f));
+    modelLeft = glm::rotate(modelLeft, glm::radians(g_rotationAngle * 1.3f), glm::vec3(0.0f, 1.0f, 0.0f));
+    modelLeft = glm::scale(modelLeft, glm::vec3(0.6f));
+    objectModels.push_back(modelLeft);
+    
+    // СОРТИРОВКА ПО ГЛУБИНЕ (дальние объекты рендерятся первыми)
+    g_zFightingManager.sortByDepth(objectModels, view);
+    
+    // Рендерим отсортированные объекты (от дальних к ближним)
+    for (const auto& modelMatrix : objectModels) {
+        glm::mat4 mvp = projection * view * modelMatrix;
+        g_clutShader->setMat4GLM("mvp", &mvp[0][0]);
+        g_clutShader->setMat4GLM("model", &modelMatrix[0][0]);
         
-        // Основная пирамидка - центральная
-        glm::mat4 modelMain = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-        modelMain = glm::rotate(modelMain, glm::radians(g_rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelMain = glm::scale(modelMain, glm::vec3(1.0f));
-        objectModels.push_back(modelMain);
-        
-        // Вторая пирамидка - справа и ближе к камере
-        glm::mat4 modelRight = glm::translate(glm::mat4(1.0f), glm::vec3(1.5f, 0.0f, 0.5f));
-        modelRight = glm::rotate(modelRight, glm::radians(g_rotationAngle * 0.7f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelRight = glm::scale(modelRight, glm::vec3(0.8f));
-        objectModels.push_back(modelRight);
-        
-        // Третья пирамидка - слева и дальше от камеры
-        glm::mat4 modelLeft = glm::translate(glm::mat4(1.0f), glm::vec3(-1.5f, 0.3f, -0.8f));
-        modelLeft = glm::rotate(modelLeft, glm::radians(g_rotationAngle * 1.3f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelLeft = glm::scale(modelLeft, glm::vec3(0.6f));
-        objectModels.push_back(modelLeft);
-        
-        // СОРТИРОВКА ПО ГЛУБИНЕ (дальние объекты рендерятся первыми)
-        g_zFightingManager.sortByDepth(objectModels, view);
-        
-        // Рендерим отсортированные объекты (от дальних к ближним)
-        for (size_t i = 0; i < objectModels.size(); ++i) {
-            glm::mat4 objMvp = projection * view * objectModels[i];
-            g_clutShader->setMat4GLM("mvp", &objMvp[0][0]);
-            g_clutShader->setMat4GLM("model", &objectModels[i][0][0]);
-            
-            // Устанавливаем смещение глубины для каждого объекта
-            float depthOffset = static_cast<float>(i) * 0.001f;
-            g_clutShader->setFloat("depthOffset", depthOffset);
-            
-            g_tetrahedron->draw();
-        }
-        
-        // Восстанавливаем состояния OpenGL
-        glDisable(GL_BLEND);
-        glEnable(GL_DEPTH_TEST);
-        g_zFightingManager.enablePaintersAlgorithm(false);
-        
+        // Рисуем объект
+        g_tetrahedron->draw();
     }
     
     g_lowResFBO->endRender();

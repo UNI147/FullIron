@@ -285,7 +285,7 @@ std::vector<unsigned char> CLUTTexture::applyPaletteWithDithering(
     std::vector<unsigned char> result(pixelCount * 4, 0);
     const int paletteSize = PALETTE_SIZE;
     
-    // Матрица Байера 4x4 для дизеринга
+    // матрица Байера 4x4 для дизеринга
     float bayerMatrix[4][4] = {
         {0.0f/16.0f,  8.0f/16.0f,  2.0f/16.0f, 10.0f/16.0f},
         {12.0f/16.0f, 4.0f/16.0f, 14.0f/16.0f,  6.0f/16.0f},
@@ -293,19 +293,14 @@ std::vector<unsigned char> CLUTTexture::applyPaletteWithDithering(
         {15.0f/16.0f, 7.0f/16.0f, 13.0f/16.0f,  5.0f/16.0f}
     };
     
-    // Вектор ошибок для диффузионного дизеринга
-    std::vector<float> errorR(pixelCount, 0.0f);
-    std::vector<float> errorG(pixelCount, 0.0f);
-    std::vector<float> errorB(pixelCount, 0.0f);
-    
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             int idx = y * width + x;
             
-            // Исходный цвет с учетом накопленной ошибки
-            float r = static_cast<float>(data[idx * 4]) + errorR[idx];
-            float g = static_cast<float>(data[idx * 4 + 1]) + errorG[idx];
-            float b = static_cast<float>(data[idx * 4 + 2]) + errorB[idx];
+            // Исходный цвет
+            float r = static_cast<float>(data[idx * 4]);
+            float g = static_cast<float>(data[idx * 4 + 1]);
+            float b = static_cast<float>(data[idx * 4 + 2]);
             
             // Пороговый дизеринг с матрицей Байера
             float threshold = (bayerMatrix[y % 4][x % 4] - 0.5f) * 32.0f;
@@ -330,49 +325,10 @@ std::vector<unsigned char> CLUTTexture::applyPaletteWithDithering(
             }
             
             // Получаем выбранный цвет
-            unsigned char selectedR = pal[bestIndex * 4];
-            unsigned char selectedG = pal[bestIndex * 4 + 1];
-            unsigned char selectedB = pal[bestIndex * 4 + 2];
-            
-            // Записываем результат
-            result[idx * 4] = selectedR;
-            result[idx * 4 + 1] = selectedG;
-            result[idx * 4 + 2] = selectedB;
+            result[idx * 4] = pal[bestIndex * 4];
+            result[idx * 4 + 1] = pal[bestIndex * 4 + 1];
+            result[idx * 4 + 2] = pal[bestIndex * 4 + 2];
             result[idx * 4 + 3] = 255;
-            
-            // Вычисляем ошибку для диффузии (Floyd-Steinberg)
-            float errorR_val = r - static_cast<float>(selectedR);
-            float errorG_val = g - static_cast<float>(selectedG);
-            float errorB_val = b - static_cast<float>(selectedB);
-            
-            // Распространяем ошибку на соседние пиксели
-            if (x + 1 < width) {
-                int rightIdx = y * width + (x + 1);
-                errorR[rightIdx] += errorR_val * 7.0f / 16.0f;
-                errorG[rightIdx] += errorG_val * 7.0f / 16.0f;
-                errorB[rightIdx] += errorB_val * 7.0f / 16.0f;
-            }
-            
-            if (y + 1 < height) {
-                if (x > 0) {
-                    int bottomLeftIdx = (y + 1) * width + (x - 1);
-                    errorR[bottomLeftIdx] += errorR_val * 3.0f / 16.0f;
-                    errorG[bottomLeftIdx] += errorG_val * 3.0f / 16.0f;
-                    errorB[bottomLeftIdx] += errorB_val * 3.0f / 16.0f;
-                }
-                
-                int bottomIdx = (y + 1) * width + x;
-                errorR[bottomIdx] += errorR_val * 5.0f / 16.0f;
-                errorG[bottomIdx] += errorG_val * 5.0f / 16.0f;
-                errorB[bottomIdx] += errorB_val * 5.0f / 16.0f;
-                
-                if (x + 1 < width) {
-                    int bottomRightIdx = (y + 1) * width + (x + 1);
-                    errorR[bottomRightIdx] += errorR_val * 1.0f / 16.0f;
-                    errorG[bottomRightIdx] += errorG_val * 1.0f / 16.0f;
-                    errorB[bottomRightIdx] += errorB_val * 1.0f / 16.0f;
-                }
-            }
         }
     }
     

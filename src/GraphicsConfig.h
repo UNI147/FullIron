@@ -2,7 +2,7 @@
 #define GRAPHICSCONFIG_H
 
 #include <iostream>
-#include <algorithm> // Добавляем для std::sort
+#include <algorithm>
 
 namespace GraphicsConfig {
     constexpr int INTERNAL_WIDTH = 320;
@@ -21,12 +21,7 @@ namespace GraphicsConfig {
     constexpr bool ENABLE_AFFINE_TEXTURING = true;
     constexpr bool ENABLE_VERTEX_JITTER = true;
     
-    constexpr bool ENABLE_Z_FIGHTING_PREVENTION = false;
-    constexpr float Z_BIAS = 0.0001f;
-    constexpr bool USE_PAINTERS_ALGORITHM = true;        // Painter's algorithm
-    
-    // Демонстрационный режим
-    constexpr bool DEMONSTRATE_Z_FIGHTING = false;
+    constexpr bool USE_PAINTERS_ALGORITHM = true;
     
     [[maybe_unused]] static bool isFormatSupported(ColorFormat format) {
         (void)format;

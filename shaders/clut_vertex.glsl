@@ -10,13 +10,12 @@ out vec2 ScreenPos;
 
 uniform mat4 mvp;
 uniform mat4 model;
+uniform mat4 view;
 uniform mat4 projection;
 uniform bool enableVertexJitter;
 uniform bool useVertexSnapping;
 uniform float vertexSnapThreshold;
 uniform float time;
-uniform vec3 cameraPos;
-uniform bool usePaintersAlgorithm;
 uniform vec2 resolution;
 
 // Генератор псевдослучайного шума с анимацией
@@ -64,7 +63,7 @@ void main() {
     vec3 ndc = ClipSpacePos.xyz / ClipSpacePos.w;
     ScreenPos = (ndc.xy + 1.0) * 0.5 * resolution;
     
-    // Сохраняем глубину для Painter's algorithm
+    // Сохраняем глубину
     VertexDepth = ClipSpacePos.z / ClipSpacePos.w;
     
     gl_Position = ClipSpacePos;
