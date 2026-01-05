@@ -1,4 +1,3 @@
 * Аффинное текстурирование
-* Вершинный джиттер (vertex jitter/snapping)
-* Z-файтинг (z-fighting)
+* Вершинный джиттер (vertex jitter)
 * Строгий порядковый рендеринг (painter's algorithm)

@@ -87,6 +87,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zm200 /bigobj</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -135,6 +136,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zm200 /bigobj</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -184,6 +186,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zm200 /bigobj</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -233,6 +236,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zm200 /bigobj</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -342,12 +346,15 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\FullIron\src\CLUTTexture.cpp" />
     <ClCompile Include="C:\FullIron\src\LowResFramebuffer.cpp" />
     <ClCompile Include="C:\FullIron\src\PaletteManager.cpp" />
+    <ClCompile Include="C:\FullIron\src\ZFightingManager.cpp" />
     <ClInclude Include="C:\FullIron\src\Shader.h" />
     <ClInclude Include="C:\FullIron\src\Tetrahedron.h" />
     <ClInclude Include="C:\FullIron\src\CLUTTexture.h" />
     <ClInclude Include="C:\FullIron\src\LowResFramebuffer.h" />
     <ClInclude Include="C:\FullIron\src\PaletteManager.h" />
     <ClInclude Include="C:\FullIron\src\GraphicsConfig.h" />
+    <ClInclude Include="C:\FullIron\src\ZFightingManager.h" />
+    <ClInclude Include="C:\FullIron\src\shader_config.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\FullIron\build\ZERO_CHECK.vcxproj">

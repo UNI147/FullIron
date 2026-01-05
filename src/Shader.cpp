@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <filesystem>
+#include <glm/glm.hpp>
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     std::cout << "Loading shaders from: " << vertexPath << " and " << fragmentPath << std::endl;
@@ -34,14 +35,6 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
         std::cout << "Successfully loaded shader files" << std::endl;
     } catch (std::ifstream::failure& e) {
         std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: " << e.what() << std::endl;
-        
-        // Получаем текущую директорию (используем namespace)
-        try {
-            std::cerr << "Current directory: " << std::filesystem::current_path() << std::endl;
-        } catch (const std::exception& ex) {
-            std::cerr << "Failed to get current path: " << ex.what() << std::endl;
-        }
-        
         usingFallback = true;
         
         // Создаем простые шейдеры по умолчанию
@@ -106,11 +99,55 @@ void Shader::use() {
 }
 
 void Shader::setMat4(const std::string &name, const float* value) const {
-    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, value);
+    GLint location = glGetUniformLocation(ID, name.c_str());
+    if (location != -1) {
+        glUniformMatrix4fv(location, 1, GL_FALSE, value);
+    }
+}
+
+// НОВЫЙ МЕТОД: принимает указатель на glm::mat4
+void Shader::setMat4GLM(const std::string &name, const void* glmMatrix) const {
+    GLint location = glGetUniformLocation(ID, name.c_str());
+    if (location != -1) {
+        // Преобразуем void* в указатель на float
+        const float* matrixData = reinterpret_cast<const float*>(glmMatrix);
+        glUniformMatrix4fv(location, 1, GL_FALSE, matrixData);
+    }
 }
 
 void Shader::setInt(const std::string &name, int value) const {
-    glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+    GLint location = glGetUniformLocation(ID, name.c_str());
+    if (location != -1) {
+        glUniform1i(location, value);
+    }
+}
+
+void Shader::setVec2(const std::string &name, float x, float y) const {
+    GLint location = glGetUniformLocation(ID, name.c_str());
+    if (location != -1) {
+        glUniform2f(location, x, y);
+    }
+}
+
+void Shader::setVec3(const std::string &name, float x, float y, float z) const {
+    GLint location = glGetUniformLocation(ID, name.c_str());
+    if (location != -1) {
+        glUniform3f(location, x, y, z);
+    }
+}
+
+void Shader::setFloat(const std::string &name, float value) const {
+    GLint location = glGetUniformLocation(ID, name.c_str());
+    if (location != -1) {
+        glUniform1f(location, value);
+    }
+}
+
+void Shader::setBool(const std::string &name, bool value) const {
+    GLint location = glGetUniformLocation(ID, name.c_str());
+    if (location != -1) {
+        glUniform1i(location, static_cast<int>(value));
+    }
 }
 
 void Shader::checkCompileErrors(GLuint shader, std::string type) {
@@ -132,12 +169,4 @@ void Shader::checkCompileErrors(GLuint shader, std::string type) {
                       << infoLog << std::endl;
         }
     }
-}
-
-void Shader::setVec2(const std::string &name, float x, float y) const {
-    glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
-}
-
-void Shader::setBool(const std::string &name, bool value) const {
-    glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }

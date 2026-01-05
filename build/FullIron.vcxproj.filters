@@ -19,6 +19,9 @@
     <ClCompile Include="C:\FullIron\src\PaletteManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\FullIron\src\ZFightingManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\FullIron\src\Shader.h">
@@ -37,6 +40,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\FullIron\src\GraphicsConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\src\ZFightingManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\src\shader_config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

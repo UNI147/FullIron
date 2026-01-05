@@ -1,10 +1,28 @@
 cmake_minimum_required(VERSION 3.10)
-project(FullIron)
+project(FullIron LANGUAGES C CXX)
+
+# компиляторы если они не найдены
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    if(NOT CMAKE_C_COMPILER)
+        set(CMAKE_C_COMPILER "cl")
+    endif()
+    if(NOT CMAKE_CXX_COMPILER)
+        set(CMAKE_CXX_COMPILER "cl")
+    endif()
+endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(GLFW_DIR "C:/FullIron/include/glfw-3.3.8.bin.WIN64")
+
+# Включаем поддержку статической линковки для MSVC
+if(MSVC)
+    add_compile_options(/Zm200)
+    add_compile_options("/bigobj")
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
 
 # Ищем OpenGL
 find_package(OpenGL REQUIRED)
@@ -26,6 +44,7 @@ set(SOURCES
     src/CLUTTexture.cpp
     src/LowResFramebuffer.cpp
     src/PaletteManager.cpp
+    src/ZFightingManager.cpp
     
 )
 
@@ -37,6 +56,8 @@ set(HEADERS
     src/LowResFramebuffer.h
     src/PaletteManager.h
     src/GraphicsConfig.h
+    src/ZFightingManager.h
+    src/shader_config.h
 )
 
 # Создаем исполняемый файл

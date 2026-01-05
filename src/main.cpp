@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
 #include <fstream>
+#include <algorithm>
 #include "Shader.h"
 #include "Tetrahedron.h"
 #include "LowResFramebuffer.h"
@@ -11,6 +12,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "glad.h"
 #include "GraphicsConfig.h"
+#include "ZFightingManager.h"
 
 #pragma comment(linker, "/subsystem:console")
 #pragma comment(lib, "opengl32.lib")
@@ -32,6 +34,9 @@ Tetrahedron* g_tetrahedron = nullptr;
 CLUTTexture* g_clutTexture = nullptr;
 
 float g_rotationAngle = 0.0f;
+
+ZFightingManager& g_zFightingManager = ZFightingManager::getInstance();
+float g_time = 0.0f;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch(uMsg) {
@@ -91,6 +96,10 @@ bool InitOpenGL() {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     
+    // Настраиваем функции
+    g_zFightingManager.enablePrevention(true);
+    g_zFightingManager.setZBias(0.0001f);
+    
     // ЖЕСТКОЕ ПРИНУДИТЕЛЬНОЕ УСТАНОВЛЕНИЕ ТОЧЕЧНОЙ ФИЛЬТРАЦИИ
     std::cout << "FORCING POINT SAMPLING FOR ALL TEXTURES..." << std::endl;
     
@@ -102,6 +111,7 @@ bool InitOpenGL() {
         // Создаем тетраэдр
         std::cout << "Creating tetrahedron..." << std::endl;
         g_tetrahedron = new Tetrahedron();
+        std::cout << "Tetrahedron created successfully" << std::endl;
         
         // Загружаем текстуру (строго с 256-цветной палитрой)
         std::cout << "Loading texture with 256-color palette..." << std::endl;
@@ -114,15 +124,11 @@ bool InitOpenGL() {
             g_clutTexture = new CLUTTexture("resources/metalplate.png", true);
             std::cout << "256-color CLUT texture loaded" << std::endl;
         }
+        std::cout << "CLUT Texture loaded, ID: " << g_clutTexture->getID() 
+                << ", Palette ID: " << g_clutTexture->getPaletteTextureID() << std::endl;
         
-        // Создаем фреймбуфер СТРОГО 320x240
-        std::cout << "Creating 320x240 framebuffer (RGB555 emulated)..." << std::endl;
+        // Создаем фреймбуфер
         g_lowResFBO = new LowResFramebuffer(INTERNAL_WIDTH, INTERNAL_HEIGHT);
-        
-        std::cout << "========================================" << std::endl;
-        std::cout << "FULLIRON" << std::endl;
-        std::cout << "========================================" << std::endl;
-        
         return true;
         
     } catch (const std::exception& e) {
@@ -132,22 +138,21 @@ bool InitOpenGL() {
 }
 
 void Render() {
-    // Просто рендерим без лишних проверок
-    
-    g_rotationAngle += 0.5f;
-    if (g_rotationAngle > 360.0f) g_rotationAngle -= 360.0f;
+    g_time += 0.016f;
+    g_rotationAngle = g_time * 30.0f;
     
     // МАТРИЦА МОДЕЛИ
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::rotate(model, glm::radians(g_rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
     
     // КАМЕРА
     glm::mat4 view = glm::lookAt(
-        glm::vec3(2.5f, 2.2f, 2.5f),
-        glm::vec3(0.0f, 0.3f, 0.0f),
+        glm::vec3(2.0f, 1.5f, 2.0f),
+        glm::vec3(0.0f, 0.0f, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f)
     );
+    
+    glm::vec3 cameraPos = glm::vec3(2.0f, 1.5f, 2.0f);
     
     // ПРОЕКЦИЯ 4:3
     glm::mat4 projection = glm::perspective(
@@ -159,28 +164,95 @@ void Render() {
     // 1. РЕНДЕР ВО ФРЕЙМБУФЕР 320x240
     g_lowResFBO->beginRender();
     
-    // ЦВЕТ ФОНА: темно-серый
+    // Очистка
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    // Используем CLUT шейдер
+    // ВКЛЮЧАЕМ PAINTER'S ALGORITHM если нужно
+    if (GraphicsConfig::USE_PAINTERS_ALGORITHM) {
+        g_zFightingManager.enablePaintersAlgorithm(true);
+        
+        // Отключаем Z-буфер и включаем смешивание
+        glDisable(GL_DEPTH_TEST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    } else {
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_BLEND);
+    }
+    
+    // НАСТРАИВАЕМ SHADER
     g_clutShader->use();
     
     // Передаем матрицы
     glm::mat4 mvp = projection * view * model;
-    g_clutShader->setMat4("mvp", glm::value_ptr(mvp));
+    g_clutShader->setMat4GLM("mvp", &mvp[0][0]);
+    g_clutShader->setMat4GLM("model", &model[0][0]);
+    g_clutShader->setMat4GLM("projection", &projection[0][0]);
+    
+    g_clutShader->setBool("enableVertexJitter", GraphicsConfig::ENABLE_VERTEX_JITTER);
+    g_clutShader->setBool("useVertexSnapping", GraphicsConfig::ENABLE_VERTEX_JITTER);
+    g_clutShader->setFloat("vertexSnapThreshold", 0.01f);
+    g_clutShader->setBool("useAffineTexturing", GraphicsConfig::ENABLE_AFFINE_TEXTURING);
+    g_clutShader->setBool("enableZFightingPrevention", 
+                         GraphicsConfig::ENABLE_Z_FIGHTING_PREVENTION && !GraphicsConfig::USE_PAINTERS_ALGORITHM);
+    g_clutShader->setFloat("zBias", GraphicsConfig::Z_BIAS);
+    g_clutShader->setVec3("cameraPos", cameraPos.x, cameraPos.y, cameraPos.z);
+    g_clutShader->setFloat("time", g_time);
+    g_clutShader->setVec2("resolution", (float)INTERNAL_WIDTH, (float)INTERNAL_HEIGHT);
+    g_clutShader->setBool("useDithering", true);
+    g_clutShader->setBool("usePaintersAlgorithm", GraphicsConfig::USE_PAINTERS_ALGORITHM);
+    g_clutShader->setFloat("depthOffset", 0.0f);
     
     // Привязываем текстуры
     g_clutTexture->bind(0);
     g_clutShader->setInt("indexTexture", 0);
     g_clutShader->setInt("paletteTexture", 1);
     
-    // Включаем дизеринг
-    g_clutShader->setBool("useDithering", true);
-    g_clutShader->setVec2("resolution", INTERNAL_WIDTH, INTERNAL_HEIGHT);
-    
-    // Рисуем тетраэдр
-    g_tetrahedron->draw();
+    // УПРАВЛЕНИЕ РЕНДЕРИНГОМ
+    if (GraphicsConfig::USE_PAINTERS_ALGORITHM) {
+        std::vector<glm::mat4> objectModels;
+        
+        // Основная пирамидка - центральная
+        glm::mat4 modelMain = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+        modelMain = glm::rotate(modelMain, glm::radians(g_rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelMain = glm::scale(modelMain, glm::vec3(1.0f));
+        objectModels.push_back(modelMain);
+        
+        // Вторая пирамидка - справа и ближе к камере
+        glm::mat4 modelRight = glm::translate(glm::mat4(1.0f), glm::vec3(1.5f, 0.0f, 0.5f));
+        modelRight = glm::rotate(modelRight, glm::radians(g_rotationAngle * 0.7f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelRight = glm::scale(modelRight, glm::vec3(0.8f));
+        objectModels.push_back(modelRight);
+        
+        // Третья пирамидка - слева и дальше от камеры
+        glm::mat4 modelLeft = glm::translate(glm::mat4(1.0f), glm::vec3(-1.5f, 0.3f, -0.8f));
+        modelLeft = glm::rotate(modelLeft, glm::radians(g_rotationAngle * 1.3f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelLeft = glm::scale(modelLeft, glm::vec3(0.6f));
+        objectModels.push_back(modelLeft);
+        
+        // СОРТИРОВКА ПО ГЛУБИНЕ (дальние объекты рендерятся первыми)
+        g_zFightingManager.sortByDepth(objectModels, view);
+        
+        // Рендерим отсортированные объекты (от дальних к ближним)
+        for (size_t i = 0; i < objectModels.size(); ++i) {
+            glm::mat4 objMvp = projection * view * objectModels[i];
+            g_clutShader->setMat4GLM("mvp", &objMvp[0][0]);
+            g_clutShader->setMat4GLM("model", &objectModels[i][0][0]);
+            
+            // Устанавливаем смещение глубины для каждого объекта
+            float depthOffset = static_cast<float>(i) * 0.001f;
+            g_clutShader->setFloat("depthOffset", depthOffset);
+            
+            g_tetrahedron->draw();
+        }
+        
+        // Восстанавливаем состояния OpenGL
+        glDisable(GL_BLEND);
+        glEnable(GL_DEPTH_TEST);
+        g_zFightingManager.enablePaintersAlgorithm(false);
+        
+    }
     
     g_lowResFBO->endRender();
     

@@ -23,49 +23,60 @@ CLUTTexture::CLUTTexture(const std::string& imagePath,
     
     if (width == 0 || height == 0) {
         std::cerr << "Failed to load image: " << imagePath << std::endl;
+        // Не создаем текстуры, если изображение не загружено
         return;
     }
     
     // Только 256-цветные палитры
     const int paletteSize = PALETTE_SIZE;
     
-    // Получаем или генерируем палитру
-    PaletteManager& pm = PaletteManager::getInstance();
-    std::string paletteName = customPaletteName.empty() ? 
-                             pm.generatePaletteName(imagePath) : 
-                             customPaletteName;
-    
-    if (generatePalette || !pm.hasPalette(paletteName)) {
-        // Генерируем новую палитру
-        std::cout << "Generating new 256-color palette for: " << imagePath << std::endl;
-        palette = pm.generatePaletteForTexture(imagePath, paletteSize, paletteName);
-    } else {
-        // Используем существующую палитру
-        std::cout << "Using existing palette: " << paletteName << std::endl;
-        palette = pm.getPalette(paletteName);
+    try {
+        // Получаем или генерируем палитру
+        PaletteManager& pm = PaletteManager::getInstance();
+        std::string paletteName = customPaletteName.empty() ? 
+                                 pm.generatePaletteName(imagePath) : 
+                                 customPaletteName;
         
-        if (palette.empty()) {
-            // Если палитра не найдена, генерируем новую
+        if (generatePalette || !pm.hasPalette(paletteName)) {
+            // Генерируем новую палитру
+            std::cout << "Generating new 256-color palette for: " << imagePath << std::endl;
             palette = pm.generatePaletteForTexture(imagePath, paletteSize, paletteName);
+        } else {
+            // Используем существующую палитру
+            std::cout << "Using existing palette: " << paletteName << std::endl;
+            palette = pm.getPalette(paletteName);
+            
+            if (palette.empty()) {
+                // Если палитра не найдена, генерируем новую
+                palette = pm.generatePaletteForTexture(imagePath, paletteSize, paletteName);
+            }
         }
+        
+        // Применяем палитру с дизерингом
+        int channels = 4; // RGBA
+        std::vector<unsigned char> rgbaData(width * height * channels);
+        
+        // Конвертируем данные в RGBA
+        for (int i = 0; i < width * height; i++) {
+            rgbaData[i * 4] = indexedData[i * 4];
+            rgbaData[i * 4 + 1] = indexedData[i * 4 + 1];
+            rgbaData[i * 4 + 2] = indexedData[i * 4 + 2];
+            rgbaData[i * 4 + 3] = 255;
+        }
+        
+        indexedData = applyPaletteWithDithering(rgbaData.data(), palette);
+        
+        // Создаем текстуры
+        setupTextures();
+        
+    } catch (const std::exception& e) {
+        std::cerr << "Error in CLUTTexture constructor: " << e.what() << std::endl;
+        // Очищаем ресурсы при ошибке
+        if (textureID) glDeleteTextures(1, &textureID);
+        if (paletteTextureID) glDeleteTextures(1, &paletteTextureID);
+        textureID = 0;
+        paletteTextureID = 0;
     }
-    
-    // Применяем палитру с дизерингом
-    int channels = 4; // RGBA
-    std::vector<unsigned char> rgbaData(width * height * channels);
-    
-    // Конвертируем данные в RGBA
-    for (int i = 0; i < width * height; i++) {
-        rgbaData[i * 4] = indexedData[i * 4];
-        rgbaData[i * 4 + 1] = indexedData[i * 4 + 1];
-        rgbaData[i * 4 + 2] = indexedData[i * 4 + 2];
-        rgbaData[i * 4 + 3] = 255;
-    }
-    
-    indexedData = applyPaletteWithDithering(rgbaData.data(), palette);
-    
-    // Создаем текстуры
-    setupTextures();
 }
 
 // Конструктор с использованием существующей палитры
@@ -146,11 +157,17 @@ void CLUTTexture::loadImage() {
 }
 
 void CLUTTexture::setupTextures() {
+    // Проверяем наличие данных
+    if (width == 0 || height == 0 || indexedData.empty()) {
+        std::cerr << "Cannot setup textures: no image data" << std::endl;
+        return;
+    }
+    
     // Создаем текстуру индексов
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
     
-    // POINT SAMPLING
+    // POINT SAMPLING - СТРОГО
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -160,7 +177,6 @@ void CLUTTexture::setupTextures() {
     std::vector<unsigned char> indexData(width * height);
     
     for (int i = 0; i < width * height; i++) {
-        // Находим ближайший цвет в палитре
         int bestIndex = 0;
         float bestDistance = FLT_MAX;
         
@@ -186,7 +202,7 @@ void CLUTTexture::setupTextures() {
     // Пробуем использовать GL_R8 формат
     bool r8Supported = true;
     
-    // Сначала очистим ошибки OpenGL
+    // Очищаем все предыдущие ошибки OpenGL
     while (glGetError() != GL_NO_ERROR);
     
     // Пробуем загрузить с GL_R8
@@ -196,13 +212,16 @@ void CLUTTexture::setupTextures() {
     // Проверяем наличие ошибок OpenGL
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
-        std::cerr << "GL_R8 not supported (error: " << error << "), falling back to GL_RGBA format" << std::endl;
+        std::cout << "GL_R8 not supported (error: " << error 
+                  << "), falling back to GL_RGBA format" << std::endl;
         r8Supported = false;
         
-        // Удаляем текстуру и создаем заново
+        // Пересоздаем текстуру
         glDeleteTextures(1, &textureID);
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
+        
+        // Устанавливаем параметры фильтрации
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -220,6 +239,14 @@ void CLUTTexture::setupTextures() {
         
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, 
                      GL_RGBA, GL_UNSIGNED_BYTE, rgbaData.data());
+        
+        error = glGetError();
+        if (error != GL_NO_ERROR) {
+            std::cerr << "Failed to create texture with GL_RGBA format: " << error << std::endl;
+            glDeleteTextures(1, &textureID);
+            textureID = 0;
+            return;
+        }
     } else {
         std::cout << "GL_R8 format supported for index texture" << std::endl;
     }
@@ -234,13 +261,20 @@ void CLUTTexture::setupTextures() {
     glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     
     int actualPaletteSize = static_cast<int>(palette.size() / 4);
-    glTexImage1D(GL_TEXTURE_1D, 0, GL_RGBA, actualPaletteSize, 0, 
-                 GL_RGBA, GL_UNSIGNED_BYTE, palette.data());
-    
-    // Проверяем наличие ошибок OpenGL
-    error = glGetError();
-    if (error != GL_NO_ERROR) {
-        std::cerr << "OpenGL error in setupTextures: " << error << std::endl;
+    if (actualPaletteSize > 0) {
+        glTexImage1D(GL_TEXTURE_1D, 0, GL_RGBA, actualPaletteSize, 0, 
+                     GL_RGBA, GL_UNSIGNED_BYTE, palette.data());
+        
+        error = glGetError();
+        if (error != GL_NO_ERROR) {
+            std::cerr << "Failed to create palette texture: " << error << std::endl;
+            glDeleteTextures(1, &paletteTextureID);
+            paletteTextureID = 0;
+        }
+    } else {
+        std::cerr << "Cannot create palette texture: palette is empty" << std::endl;
+        glDeleteTextures(1, &paletteTextureID);
+        paletteTextureID = 0;
     }
 }
 
@@ -259,23 +293,27 @@ std::vector<unsigned char> CLUTTexture::applyPaletteWithDithering(
         {15.0f/16.0f, 7.0f/16.0f, 13.0f/16.0f,  5.0f/16.0f}
     };
     
+    // Вектор ошибок для диффузионного дизеринга
+    std::vector<float> errorR(pixelCount, 0.0f);
+    std::vector<float> errorG(pixelCount, 0.0f);
+    std::vector<float> errorB(pixelCount, 0.0f);
+    
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             int idx = y * width + x;
             
-            // Получаем исходный цвет С ДИЗЕРИНГОМ перед палитризацией
-            float r = static_cast<float>(data[idx * 4]);
-            float g = static_cast<float>(data[idx * 4 + 1]);
-            float b = static_cast<float>(data[idx * 4 + 2]);
+            // Исходный цвет с учетом накопленной ошибки
+            float r = static_cast<float>(data[idx * 4]) + errorR[idx];
+            float g = static_cast<float>(data[idx * 4 + 1]) + errorG[idx];
+            float b = static_cast<float>(data[idx * 4 + 2]) + errorB[idx];
             
-            // Применяем дизеринг к исходным данным
-            float threshold = (bayerMatrix[y % 4][x % 4] - 0.5f) * 32.0f; // Коэффициент для 8-битных цветов
-            
+            // Пороговый дизеринг с матрицей Байера
+            float threshold = (bayerMatrix[y % 4][x % 4] - 0.5f) * 32.0f;
             r = std::clamp(r + threshold, 0.0f, 255.0f);
             g = std::clamp(g + threshold, 0.0f, 255.0f);
             b = std::clamp(b + threshold, 0.0f, 255.0f);
             
-            // Теперь ищем ближайший цвет в палитре для ДИЗЕРИРОВАННЫХ данных
+            // Находим ближайший цвет в палитре
             int bestIndex = 0;
             float bestDistance = FLT_MAX;
             
@@ -291,11 +329,50 @@ std::vector<unsigned char> CLUTTexture::applyPaletteWithDithering(
                 }
             }
             
-            // Записываем найденный цвет
-            result[idx * 4] = pal[bestIndex * 4];
-            result[idx * 4 + 1] = pal[bestIndex * 4 + 1];
-            result[idx * 4 + 2] = pal[bestIndex * 4 + 2];
+            // Получаем выбранный цвет
+            unsigned char selectedR = pal[bestIndex * 4];
+            unsigned char selectedG = pal[bestIndex * 4 + 1];
+            unsigned char selectedB = pal[bestIndex * 4 + 2];
+            
+            // Записываем результат
+            result[idx * 4] = selectedR;
+            result[idx * 4 + 1] = selectedG;
+            result[idx * 4 + 2] = selectedB;
             result[idx * 4 + 3] = 255;
+            
+            // Вычисляем ошибку для диффузии (Floyd-Steinberg)
+            float errorR_val = r - static_cast<float>(selectedR);
+            float errorG_val = g - static_cast<float>(selectedG);
+            float errorB_val = b - static_cast<float>(selectedB);
+            
+            // Распространяем ошибку на соседние пиксели
+            if (x + 1 < width) {
+                int rightIdx = y * width + (x + 1);
+                errorR[rightIdx] += errorR_val * 7.0f / 16.0f;
+                errorG[rightIdx] += errorG_val * 7.0f / 16.0f;
+                errorB[rightIdx] += errorB_val * 7.0f / 16.0f;
+            }
+            
+            if (y + 1 < height) {
+                if (x > 0) {
+                    int bottomLeftIdx = (y + 1) * width + (x - 1);
+                    errorR[bottomLeftIdx] += errorR_val * 3.0f / 16.0f;
+                    errorG[bottomLeftIdx] += errorG_val * 3.0f / 16.0f;
+                    errorB[bottomLeftIdx] += errorB_val * 3.0f / 16.0f;
+                }
+                
+                int bottomIdx = (y + 1) * width + x;
+                errorR[bottomIdx] += errorR_val * 5.0f / 16.0f;
+                errorG[bottomIdx] += errorG_val * 5.0f / 16.0f;
+                errorB[bottomIdx] += errorB_val * 5.0f / 16.0f;
+                
+                if (x + 1 < width) {
+                    int bottomRightIdx = (y + 1) * width + (x + 1);
+                    errorR[bottomRightIdx] += errorR_val * 1.0f / 16.0f;
+                    errorG[bottomRightIdx] += errorG_val * 1.0f / 16.0f;
+                    errorB[bottomRightIdx] += errorB_val * 1.0f / 16.0f;
+                }
+            }
         }
     }
     
