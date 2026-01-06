@@ -3,7 +3,7 @@
 #include <fstream>
 #include <algorithm>
 #include "Shader.h"
-#include "Tetrahedron.h"
+#include "Cube.h"
 #include "LowResFramebuffer.h"
 #include "CLUTTexture.h"
 #include "PaletteManager.h"
@@ -30,10 +30,12 @@ HDC g_hDC = nullptr;
 HGLRC g_hRC = nullptr;
 LowResFramebuffer* g_lowResFBO = nullptr;
 Shader* g_clutShader = nullptr;
-Tetrahedron* g_tetrahedron = nullptr;
+Cube* g_cube1 = nullptr;
+Cube* g_cube2 = nullptr;
 CLUTTexture* g_clutTexture = nullptr;
 
-float g_rotationAngle = 0.0f;
+float g_rotationAngle1 = 0.0f;
+float g_rotationAngle2 = 0.0f;
 
 ZFightingManager& g_zFightingManager = ZFightingManager::getInstance();
 float g_time = 0.0f;
@@ -114,20 +116,21 @@ bool InitOpenGL() {
         std::cout << "Loading CLUT shader..." << std::endl;
         g_clutShader = new Shader("shaders/clut_vertex.glsl", "shaders/clut_fragment.glsl");
         
-        // Создаем тетраэдр
-        std::cout << "Creating tetrahedron..." << std::endl;
-        g_tetrahedron = new Tetrahedron();
-        std::cout << "Tetrahedron created successfully" << std::endl;
+        // Создаем кубы
+        std::cout << "Creating cubes..." << std::endl;
+        g_cube1 = new Cube();
+        g_cube2 = new Cube();
+        std::cout << "Cubes created successfully" << std::endl;
         
         // Загружаем текстуру
         std::cout << "Loading texture with 256-color palette..." << std::endl;
-        std::ifstream testFile("resources/metalplate.png");
+        std::ifstream testFile("resources/transformer.png");
         if (!testFile.good()) {
             std::cerr << "Texture not found, using default..." << std::endl;
             g_clutTexture = new CLUTTexture("");
         } else {
             testFile.close();
-            g_clutTexture = new CLUTTexture("resources/metalplate.png", true);
+            g_clutTexture = new CLUTTexture("resources/transformer.png", true);
             std::cout << "256-color CLUT texture loaded" << std::endl;
         }
         std::cout << "CLUT Texture loaded, ID: " << g_clutTexture->getID() 
@@ -145,15 +148,17 @@ bool InitOpenGL() {
 
 void Render() {
     g_time += 0.016f;
-    g_rotationAngle = g_time * 30.0f;
+    g_rotationAngle1 = g_time * 30.0f;  // Вращение вокруг Y для нижнего куба
+    g_rotationAngle2 = g_time * 20.0f;  // Вращение вокруг X для верхнего куба
     
+    // Приближаем камеру
     glm::mat4 view = glm::lookAt(
-        glm::vec3(2.0f, 1.5f, 2.0f),
+        glm::vec3(0.0f, 0.0f, 3.0f),
         glm::vec3(0.0f, 0.0f, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f)
     );
     
-    glm::vec3 cameraPos = glm::vec3(2.0f, 1.5f, 2.0f);
+    glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
     
     glm::mat4 projection = glm::perspective(
         glm::radians(45.0f),
@@ -172,7 +177,6 @@ void Render() {
     glDisable(GL_DEPTH_TEST);
     glDepthMask(GL_FALSE);
     
-    // Для непрозрачных объектов отключаем blending!
     glDisable(GL_BLEND);
     
     // Настраиваем шейдер
@@ -181,14 +185,16 @@ void Render() {
     // Передаем матрицы и настройки
     g_clutShader->setMat4GLM("projection", &projection[0][0]);
     g_clutShader->setMat4GLM("view", &view[0][0]);
+    
     g_clutShader->setBool("enableVertexJitter", GraphicsConfig::ENABLE_VERTEX_JITTER);
     g_clutShader->setBool("useVertexSnapping", GraphicsConfig::ENABLE_VERTEX_JITTER);
-    g_clutShader->setFloat("vertexSnapThreshold", 0.01f);
+    g_clutShader->setFloat("vertexSnapThreshold", GraphicsConfig::VERTEX_SNAP_THRESHOLD);
     g_clutShader->setBool("useAffineTexturing", GraphicsConfig::ENABLE_AFFINE_TEXTURING);
     g_clutShader->setVec3("cameraPos", cameraPos.x, cameraPos.y, cameraPos.z);
     g_clutShader->setFloat("time", g_time);
     g_clutShader->setVec2("resolution", (float)INTERNAL_WIDTH, (float)INTERNAL_HEIGHT);
     g_clutShader->setBool("useDithering", GraphicsConfig::ENABLE_DITHERING);
+    g_clutShader->setFloat("subPixelShift", 0.08f);
     
     // Привязываем текстуры
     g_clutTexture->bind(0);
@@ -196,37 +202,41 @@ void Render() {
     g_clutShader->setInt("paletteTexture", 1);
     
     // СОЗДАЕМ И СОРТИРУЕМ ОБЪЕКТЫ ПО ГЛУБИНЕ
-    std::vector<glm::mat4> objectModels;
     
-    // Основная пирамидка - центральная
-    glm::mat4 modelMain = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-    modelMain = glm::rotate(modelMain, glm::radians(g_rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f));
-    modelMain = glm::scale(modelMain, glm::vec3(1.0f));
-    objectModels.push_back(modelMain);
+    // КУБ 1: левый нижний (БЛИЖЕ к камере)
+    glm::mat4 model1 = glm::translate(glm::mat4(1.0f), glm::vec3(-0.4f, -0.4f, 0.2f));
+    model1 = glm::rotate(model1, glm::radians(g_rotationAngle1), glm::vec3(0.0f, 1.0f, 0.0f));
+    model1 = glm::scale(model1, glm::vec3(0.5f));
     
-    // Вторая пирамидка - справа и ближе к камере
-    glm::mat4 modelRight = glm::translate(glm::mat4(1.0f), glm::vec3(1.5f, 0.0f, 0.5f));
-    modelRight = glm::rotate(modelRight, glm::radians(g_rotationAngle * 0.7f), glm::vec3(0.0f, 1.0f, 0.0f));
-    modelRight = glm::scale(modelRight, glm::vec3(0.8f));
-    objectModels.push_back(modelRight);
+    // КУБ 2: правый верхний (ДАЛЬШЕ от камеры)
+    glm::mat4 model2 = glm::translate(glm::mat4(1.0f), glm::vec3(0.4f, 0.2f, -0.3f));
+    model2 = glm::rotate(model2, glm::radians(g_rotationAngle2), glm::vec3(1.0f, 0.0f, 0.0f));
+    model2 = glm::scale(model2, glm::vec3(0.5f));
     
-    // Третья пирамидка - слева и дальше от камеры
-    glm::mat4 modelLeft = glm::translate(glm::mat4(1.0f), glm::vec3(-1.5f, 0.3f, -0.8f));
-    modelLeft = glm::rotate(modelLeft, glm::radians(g_rotationAngle * 1.3f), glm::vec3(0.0f, 1.0f, 0.0f));
-    modelLeft = glm::scale(modelLeft, glm::vec3(0.6f));
-    objectModels.push_back(modelLeft);
+    // Создаем вектор для сортировки
+    std::vector<std::pair<float, glm::mat4>> objects;
     
-    // СОРТИРОВКА ПО ГЛУБИНЕ (дальние объекты рендерятся первыми)
-    g_zFightingManager.sortByDepth(objectModels, view);
+    // Рассчитываем глубину в пространстве камеры
+    glm::vec4 pos1 = view * model1 * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    glm::vec4 pos2 = view * model2 * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    
+    objects.push_back({pos1.z, model1});
+    objects.push_back({pos2.z, model2});
+    
+    // Сортируем по глубине (от дальних к ближним)
+    std::sort(objects.begin(), objects.end(), 
+        [](const std::pair<float, glm::mat4>& a, const std::pair<float, glm::mat4>& b) {
+            return a.first < b.first;
+        });
     
     // Рендерим отсортированные объекты (от дальних к ближним)
-    for (const auto& modelMatrix : objectModels) {
-        glm::mat4 mvp = projection * view * modelMatrix;
+    for (const auto& obj : objects) {
+        glm::mat4 mvp = projection * view * obj.second;
         g_clutShader->setMat4GLM("mvp", &mvp[0][0]);
-        g_clutShader->setMat4GLM("model", &modelMatrix[0][0]);
+        g_clutShader->setMat4GLM("model", &obj.second[0][0]);
         
-        // Рисуем объект
-        g_tetrahedron->draw();
+        // Рисуем куб
+        g_cube1->draw();
     }
     
     g_lowResFBO->endRender();
@@ -291,7 +301,8 @@ int main() {
     }
     
     delete g_clutShader;
-    delete g_tetrahedron;
+    delete g_cube1;
+    delete g_cube2;
     delete g_clutTexture;
     delete g_lowResFBO;
     

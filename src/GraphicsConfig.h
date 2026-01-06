@@ -14,12 +14,17 @@ namespace GraphicsConfig {
         RGB555     // 5-5-5 (эмулируется в шейдере)
     };
     
-    constexpr bool FORCE_POINT_SAMPLING = true;  // GL_NEAREST всегда
-    constexpr bool USE_INTEGER_SCALING = true;   // Честное масштабирование
-    constexpr bool ENABLE_DITHERING = true;      // Дизеринг для 16-бит
+    constexpr bool FORCE_POINT_SAMPLING = true;
+    constexpr bool USE_INTEGER_SCALING = true;
+    constexpr bool ENABLE_DITHERING = true;
     
+    // НАСТРОЙКИ
     constexpr bool ENABLE_AFFINE_TEXTURING = true;
     constexpr bool ENABLE_VERTEX_JITTER = true;
+    constexpr float VERTEX_SNAP_THRESHOLD = 0.02f;
+    
+    constexpr bool USE_VERTEX_SNAPPING = ENABLE_VERTEX_JITTER;
+    constexpr float VERTEX_JITTER_AMOUNT = 0.012f;
     
     constexpr bool USE_PAINTERS_ALGORITHM = true;
     

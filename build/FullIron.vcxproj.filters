@@ -7,9 +7,6 @@
     <ClCompile Include="C:\FullIron\src\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\Tetrahedron.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\FullIron\src\CLUTTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -22,12 +19,12 @@
     <ClCompile Include="C:\FullIron\src\ZFightingManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\FullIron\src\Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\FullIron\src\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\FullIron\src\Tetrahedron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\FullIron\src\CLUTTexture.h">
@@ -46,6 +43,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\FullIron\src\shader_config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\src\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

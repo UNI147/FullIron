@@ -17,31 +17,42 @@ uniform bool useVertexSnapping;
 uniform float vertexSnapThreshold;
 uniform float time;
 uniform vec2 resolution;
+uniform float subPixelShift;
 
-// Генератор псевдослучайного шума с анимацией
+// Простой генератор шума
 float random(vec2 st) {
     return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
 }
 
-// Анимированный джиттер
-float animatedJitter(vec3 position, float time) {
-    vec3 animatedPos = position + vec3(sin(time), cos(time * 0.7), sin(time * 1.3)) * 0.1;
-    float noise = random(animatedPos.xy + vec2(time * 0.5));
-    noise += random(animatedPos.yz + vec2(time * 0.3));
-    noise += random(animatedPos.zx + vec2(time * 0.7));
-    return (noise / 3.0) * 2.0 - 1.0; // Нормализация к [-1, 1]
-}
-
-// Функция вершинного джиттера
+// ВЕРТЕКСНЫЙ ДЖИТТЕР
 vec3 applyVertexJitter(vec3 position, bool enableJitter, bool enableSnapping, float snapThreshold, float time) {
     vec3 finalPos = position;
     
-    // АНИМИРОВАННЫЙ ДЖИТТЕР
-    if (enableJitter && !enableSnapping) {
-        float jitterAmount = 0.005;
-        float jitter = animatedJitter(position, time) * jitterAmount;
+    if (enableJitter) {
+        // Усиленная амплитуда дрожания
+        float jitterAmount = 0.012;
         
-        finalPos += vec3(jitter);
+        // Основные искажения с разными частотами
+        float jitterX = sin(position.x * 5.0 + time * 1.0) * jitterAmount;
+        float jitterY = cos(position.y * 5.0 + time * 0.8) * jitterAmount;
+        float jitterZ = sin(position.z * 5.0 + time * 1.2) * jitterAmount;
+        
+        // Добавляем немного хаотического шума
+        float noiseX = random(position.xy + vec2(time * 0.5)) * 0.5 - 0.25;
+        float noiseY = random(position.yz + vec2(time * 0.7)) * 0.5 - 0.25;
+        float noiseZ = random(position.zx + vec2(time * 0.3)) * 0.5 - 0.25;
+        
+        finalPos.x += jitterX + noiseX * jitterAmount * 0.3;
+        finalPos.y += jitterY + noiseY * jitterAmount * 0.3;
+        finalPos.z += jitterZ + noiseZ * jitterAmount * 0.3;
+    }
+    
+    // Вершинное квантование
+    if (useVertexSnapping && snapThreshold > 0.001) {
+        float snap = snapThreshold * 0.7;
+        finalPos.x = floor(finalPos.x / snap) * snap;
+        finalPos.y = floor(finalPos.y / snap) * snap;
+        finalPos.z = floor(finalPos.z / snap) * snap;
     }
     
     return finalPos;
@@ -50,6 +61,12 @@ vec3 applyVertexJitter(vec3 position, bool enableJitter, bool enableSnapping, fl
 void main() {
     // Применяем вершинный джиттер
     vec3 finalPos = applyVertexJitter(aPos, enableVertexJitter, useVertexSnapping, vertexSnapThreshold, time);
+    
+    // Субпиксельное смещение
+    if (subPixelShift > 0.0) {
+        finalPos.x += sin(time * 0.5) * subPixelShift * 0.001;
+        finalPos.z += cos(time * 0.7) * subPixelShift * 0.001;
+    }
     
     // Вычисляем позиции
     vec4 worldPos = model * vec4(finalPos, 1.0);

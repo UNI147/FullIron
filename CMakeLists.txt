@@ -40,24 +40,26 @@ endif()
 set(SOURCES
     src/main.cpp
     src/Shader.cpp
-    src/Tetrahedron.cpp
+#    src/Tetrahedron.cpp
     src/CLUTTexture.cpp
     src/LowResFramebuffer.cpp
     src/PaletteManager.cpp
     src/ZFightingManager.cpp
+    src/Cube.cpp
     
 )
 
 # Добавляем заголовочные файлы
 set(HEADERS
     src/Shader.h
-    src/Tetrahedron.h
+#    src/Tetrahedron.h
     src/CLUTTexture.h
     src/LowResFramebuffer.h
     src/PaletteManager.h
     src/GraphicsConfig.h
     src/ZFightingManager.h
     src/shader_config.h
+    src/Cube.h
 )
 
 # Создаем исполняемый файл
