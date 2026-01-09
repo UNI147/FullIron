@@ -4,6 +4,7 @@
 #include <iostream>
 #include <windows.h>
 #include <gl/GL.h>
+#include "GraphicsSettings.h"
 
 Engine* Engine::s_instance = nullptr;
 
@@ -55,6 +56,51 @@ void Engine::initializeGraphics() {
         std::cerr << "Failed to initialize graphics: " << e.what() << std::endl;
         throw;
     }
+    
+    // Загружаем настройки
+    GraphicsSettings::loadSettings();
+    applyGraphicsSettings();
+}
+
+void Engine::applyGraphicsSettings() {
+    try {
+        std::shared_ptr<Shader> clutShader = ResourceManager::getInstance().getShader("clut");
+        if (clutShader) {
+            clutShader->use();
+            
+            // Передаем настройки в шейдеры
+            clutShader->setFloat("vertexSnapThreshold", GraphicsSettings::VERTEX_SNAP_THRESHOLD);
+            clutShader->setBool("enableVertexJitter", GraphicsConfig::ENABLE_VERTEX_JITTER);
+            clutShader->setBool("useVertexSnapping", GraphicsConfig::USE_VERTEX_SNAPPING);
+            
+            std::cout << "Graphics settings applied to shaders:" << std::endl;
+            std::cout << "  Vertex jitter amount: " << GraphicsSettings::VERTEX_JITTER_AMOUNT << std::endl;
+            std::cout << "  Vertex snap threshold: " << GraphicsSettings::VERTEX_SNAP_THRESHOLD << std::endl;
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "Failed to apply graphics settings: " << e.what() << std::endl;
+    }
+}
+
+void Engine::updateShaderUniforms() {
+    std::shared_ptr<Shader> clutShader = ResourceManager::getInstance().getShader("clut");
+    if (clutShader) {
+        clutShader->use();
+        
+        // Передаем время для анимации джиттера
+        clutShader->setFloat("time", m_time);
+        
+        // Передаем настройки вершинного джиттера
+        clutShader->setFloat("vertexJitterAmount", GraphicsSettings::VERTEX_JITTER_AMOUNT);
+        clutShader->setFloat("vertexSnapThreshold", GraphicsSettings::VERTEX_SNAP_THRESHOLD);
+        clutShader->setBool("enableVertexJitter", GraphicsConfig::ENABLE_VERTEX_JITTER);
+        clutShader->setBool("useVertexSnapping", GraphicsConfig::USE_VERTEX_SNAPPING);
+        
+        // Разрешение экрана
+        clutShader->setVec2("resolution", 
+                           static_cast<float>(m_internalWidth), 
+                           static_cast<float>(m_internalHeight));
+    }
 }
 
 void Engine::update(float deltaTime) {
@@ -79,6 +125,9 @@ void Engine::render() {
     glDisable(GL_DEPTH_TEST);
     glDepthMask(GL_FALSE);
     glDisable(GL_BLEND);
+    
+    // Устанавливаем uniform-переменные перед рендером сцены
+    updateShaderUniforms();
     
     // Рендер текущей сцены
     SceneManager::getInstance().render();

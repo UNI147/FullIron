@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MinSizeRel/FullIron.exe"
+			"path" : "Release/FullIron.exe"
 		},
 		{
-			"path" : "MinSizeRel/FullIron.pdb"
+			"path" : "Release/FullIron.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -38,7 +38,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 154,
+				"line" : 163,
 				"parent" : 0
 			},
 			{
@@ -79,7 +79,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG -std:c++17"
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17"
 				},
 				{
 					"backtrace" : 3,
@@ -187,7 +187,8 @@
 				13,
 				14,
 				15,
-				16
+				16,
+				17
 			]
 		}
 	],
@@ -207,7 +208,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG",
+				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG",
 				"role" : "flags"
 			},
 			{
@@ -241,7 +242,7 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "MinSizeRel\\glad.lib",
+				"fragment" : "Release\\glad.lib",
 				"role" : "libraries"
 			},
 			{
@@ -280,14 +281,14 @@
 				13,
 				14,
 				15,
-				16
+				16,
+				17
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				17,
 				18,
 				19,
 				20,
@@ -304,7 +305,9 @@
 				31,
 				32,
 				33,
-				34
+				34,
+				35,
+				36
 			]
 		}
 	],
@@ -414,6 +417,12 @@
 		},
 		{
 			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Graphics/GraphicsSettings.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
 			"path" : "Core/Engine.h",
 			"sourceGroupIndex" : 1
 		},
@@ -495,6 +504,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "Graphics/Cube.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Graphics/GraphicsSettings.h",
 			"sourceGroupIndex" : 1
 		},
 		{

@@ -10,6 +10,7 @@
 #include <cfloat>
 #include <fstream>
 #include <sstream>
+#include "GraphicsSettings.h"
 
 // Конструктор с автоматической генерацией палитры
 CLUTTexture::CLUTTexture(const std::string& imagePath, 
@@ -285,13 +286,31 @@ std::vector<unsigned char> CLUTTexture::applyPaletteWithDithering(
     std::vector<unsigned char> result(pixelCount * 4, 0);
     const int paletteSize = PALETTE_SIZE;
     
-    // матрица Байера 4x4 для дизеринга
-    float bayerMatrix[4][4] = {
-        {0.0f/16.0f,  8.0f/16.0f,  2.0f/16.0f, 10.0f/16.0f},
-        {12.0f/16.0f, 4.0f/16.0f, 14.0f/16.0f,  6.0f/16.0f},
-        {3.0f/16.0f, 11.0f/16.0f,  1.0f/16.0f,  9.0f/16.0f},
-        {15.0f/16.0f, 7.0f/16.0f, 13.0f/16.0f,  5.0f/16.0f}
-    };
+    // Используем настраиваемый размер матрицы
+    int matrixSize = GraphicsSettings::DITHERING_MATRIX_SIZE;
+    if (matrixSize < 2) matrixSize = 2;
+    if (matrixSize > 16) matrixSize = 16;
+    
+    // Создаем матрицу Байера указанного размера
+    std::vector<float> bayerMatrix(matrixSize * matrixSize);
+    for (int y = 0; y < matrixSize; y++) {
+        for (int x = 0; x < matrixSize; x++) {
+            float value = 0.0f;
+            int mask = matrixSize;
+            
+            // Генерация матрицы Байера
+            for (int level = 1; level < matrixSize; level *= 2) {
+                mask >>= 1;
+                if ((y & level) != 0) value += 1.0f;
+                if ((x & level) != 0) value += 2.0f;
+            }
+            
+            bayerMatrix[y * matrixSize + x] = value / (matrixSize * matrixSize);
+        }
+    }
+    
+    // Используем настраиваемую силу дизеринга
+    float ditherStrength = GraphicsSettings::DITHERING_STRENGTH;
     
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
@@ -303,7 +322,7 @@ std::vector<unsigned char> CLUTTexture::applyPaletteWithDithering(
             float b = static_cast<float>(data[idx * 4 + 2]);
             
             // Пороговый дизеринг с матрицей Байера
-            float threshold = (bayerMatrix[y % 4][x % 4] - 0.5f) * 32.0f;
+            float threshold = (bayerMatrix[(y % matrixSize) * matrixSize + (x % matrixSize)] - 0.5f) * ditherStrength;
             r = std::clamp(r + threshold, 0.0f, 255.0f);
             g = std::clamp(g + threshold, 0.0f, 255.0f);
             b = std::clamp(b + threshold, 0.0f, 255.0f);

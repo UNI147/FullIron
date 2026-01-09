@@ -52,6 +52,9 @@
     <ClCompile Include="C:\FullIron\Graphics\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\FullIron\Graphics\GraphicsSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\FullIron\Core\Engine.h">
@@ -103,6 +106,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\FullIron\Graphics\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\GraphicsSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\FullIron\Graphics\shader_config.h">

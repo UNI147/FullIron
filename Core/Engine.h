@@ -48,6 +48,9 @@ private:
     void cleanup();
     
     static Engine* s_instance;
+    
+    void applyGraphicsSettings();
+    void updateShaderUniforms(); 
 };
 
 #endif

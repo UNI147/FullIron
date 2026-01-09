@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include "GraphicsSettings.h"
 
 namespace GraphicsConfig {
     constexpr int INTERNAL_WIDTH = 320;
@@ -21,12 +22,9 @@ namespace GraphicsConfig {
     // НАСТРОЙКИ
     constexpr bool ENABLE_AFFINE_TEXTURING = true;
     constexpr bool ENABLE_VERTEX_JITTER = true;
-    constexpr float VERTEX_SNAP_THRESHOLD = 0.02f;
     
+    // Эти параметры теперь настраиваются
     constexpr bool USE_VERTEX_SNAPPING = ENABLE_VERTEX_JITTER;
-    constexpr float VERTEX_JITTER_AMOUNT = 0.012f;
-    
-    constexpr bool USE_PAINTERS_ALGORITHM = true;
     
     [[maybe_unused]] static bool isFormatSupported(ColorFormat format) {
         (void)format;

@@ -187,6 +187,8 @@ void ToggleFullscreen(HWND hWnd, bool& fullscreen, int& width, int& height) {
 }
 
 int main() {
+    GraphicsSettings::loadSettings();
+
     HINSTANCE hInstance = GetModuleHandle(NULL);
     
     // Регистрация класса окна

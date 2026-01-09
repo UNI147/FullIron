@@ -357,6 +357,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\FullIron\Graphics\PaletteManager.cpp" />
     <ClCompile Include="C:\FullIron\Graphics\ZFightingManager.cpp" />
     <ClCompile Include="C:\FullIron\Graphics\Cube.cpp" />
+    <ClCompile Include="C:\FullIron\Graphics\GraphicsSettings.cpp" />
     <ClInclude Include="C:\FullIron\Core\Engine.h" />
     <ClInclude Include="C:\FullIron\Core\ResourceManager.h" />
     <ClInclude Include="C:\FullIron\GameObject\GameObject.h" />
@@ -374,6 +375,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\FullIron\Graphics\GraphicsConfig.h" />
     <ClInclude Include="C:\FullIron\Graphics\ZFightingManager.h" />
     <ClInclude Include="C:\FullIron\Graphics\Cube.h" />
+    <ClInclude Include="C:\FullIron\Graphics\GraphicsSettings.h" />
     <ClInclude Include="C:\FullIron\Graphics\shader_config.h" />
   </ItemGroup>
   <ItemGroup>

@@ -64,10 +64,10 @@ set(SOURCES
     Graphics/PaletteManager.cpp
     Graphics/ZFightingManager.cpp
     Graphics/Cube.cpp
-#    Graphics/Tetrahedron.cpp
+    Graphics/GraphicsSettings.cpp
 )
 
-# Добавляем заголовочные файлы
+# В разделе заголовочных файлов
 set(HEADERS
     # Core
     Core/Engine.h
@@ -95,7 +95,7 @@ set(HEADERS
     Graphics/GraphicsConfig.h
     Graphics/ZFightingManager.h
     Graphics/Cube.h
-#    Graphics/Tetrahedron.h
+    Graphics/GraphicsSettings.h
     Graphics/shader_config.h
 )
 
@@ -148,6 +148,15 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/shaders")
     message(STATUS "Shaders copied to: ${CMAKE_BINARY_DIR}/Debug/shaders")
 else()
     message(WARNING "Shaders directory not found at: ${CMAKE_CURRENT_SOURCE_DIR}/shaders")
+endif()
+
+# Копирование файла настроек графики
+set(GRAPHICS_SETTINGS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/graphics_settings.ini")
+if(EXISTS "${GRAPHICS_SETTINGS_FILE}")
+    file(COPY "${GRAPHICS_SETTINGS_FILE}" DESTINATION ${CMAKE_BINARY_DIR}/Debug)
+    message(STATUS "Graphics settings copied: ${GRAPHICS_SETTINGS_FILE} -> ${CMAKE_BINARY_DIR}/Debug")
+else()
+    message(WARNING "Graphics settings file not found at: ${GRAPHICS_SETTINGS_FILE}")
 endif()
 
 # Линковка библиотек
