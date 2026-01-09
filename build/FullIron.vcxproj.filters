@@ -1,51 +1,111 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\FullIron\src\main.cpp">
+    <ClCompile Include="C:\FullIron\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\Shader.cpp">
+    <ClCompile Include="C:\FullIron\Core\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\CLUTTexture.cpp">
+    <ClCompile Include="C:\FullIron\Core\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\LowResFramebuffer.cpp">
+    <ClCompile Include="C:\FullIron\GameObject\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\PaletteManager.cpp">
+    <ClCompile Include="C:\FullIron\GameObject\Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\ZFightingManager.cpp">
+    <ClCompile Include="C:\FullIron\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\FullIron\src\Cube.cpp">
+    <ClCompile Include="C:\FullIron\Scene\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Scene\MainScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Components\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Components\Rotator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Components\CubeRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Graphics\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Graphics\CLUTTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Graphics\LowResFramebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Graphics\PaletteManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Graphics\ZFightingManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\FullIron\Graphics\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\FullIron\src\Shader.h">
+    <ClInclude Include="C:\FullIron\Core\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\CLUTTexture.h">
+    <ClInclude Include="C:\FullIron\Core\ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\LowResFramebuffer.h">
+    <ClInclude Include="C:\FullIron\GameObject\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\PaletteManager.h">
+    <ClInclude Include="C:\FullIron\GameObject\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\GraphicsConfig.h">
+    <ClInclude Include="C:\FullIron\Scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\ZFightingManager.h">
+    <ClInclude Include="C:\FullIron\Scene\SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\shader_config.h">
+    <ClInclude Include="C:\FullIron\Scene\MainScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\FullIron\src\Cube.h">
+    <ClInclude Include="C:\FullIron\Components\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Components\Rotator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Components\CubeRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\CLUTTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\LowResFramebuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\PaletteManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\GraphicsConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\ZFightingManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\FullIron\Graphics\shader_config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

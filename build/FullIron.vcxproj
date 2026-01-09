@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /Zm200 /bigobj</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -103,16 +103,16 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;NOMINMAX;USE_GLFW;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;GLM_FORCE_RADIANS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;NOMINMAX;USE_GLFW;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;GLM_FORCE_RADIANS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -120,8 +120,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glu32.lib;opengl32.lib;glu32.lib;gdi32.lib;Debug\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/FullIron/include/glfw-3.3.8.bin.WIN64/lib-vc2022;C:/FullIron/include/glfw-3.3.8.bin.WIN64/lib-vc2022/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;opengl32.lib;glu32.lib;gdi32.lib;Debug\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -135,7 +135,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /Zm200 /bigobj</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -151,18 +151,18 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;USE_GLFW;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;GLM_FORCE_RADIANS;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;USE_GLFW;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;GLM_FORCE_RADIANS;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -170,8 +170,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glu32.lib;opengl32.lib;glu32.lib;gdi32.lib;Release\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/FullIron/include/glfw-3.3.8.bin.WIN64/lib-vc2022;C:/FullIron/include/glfw-3.3.8.bin.WIN64/lib-vc2022/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;opengl32.lib;glu32.lib;gdi32.lib;Release\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -185,7 +185,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /Zm200 /bigobj</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -201,18 +201,18 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;USE_GLFW;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;GLM_FORCE_RADIANS;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;USE_GLFW;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;GLM_FORCE_RADIANS;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -220,8 +220,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glu32.lib;opengl32.lib;glu32.lib;gdi32.lib;MinSizeRel\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/FullIron/include/glfw-3.3.8.bin.WIN64/lib-vc2022;C:/FullIron/include/glfw-3.3.8.bin.WIN64/lib-vc2022/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;opengl32.lib;glu32.lib;gdi32.lib;MinSizeRel\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -235,7 +235,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /Zm200 /bigobj</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -252,16 +252,16 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;USE_GLFW;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;GLM_FORCE_RADIANS;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;USE_GLFW;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;GLM_FORCE_RADIANS;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\FullIron\include\glfw-3.3.8.bin.WIN64\include;C:\FullIron\src;C:\FullIron\glad;C:\FullIron\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\FullIron;C:\FullIron\Core;C:\FullIron\GameObject;C:\FullIron\Scene;C:\FullIron\Components;C:\FullIron\Graphics;C:\FullIron\glad;C:\FullIron\include;C:\FullIron\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -269,8 +269,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glu32.lib;opengl32.lib;glu32.lib;gdi32.lib;RelWithDebInfo\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/FullIron/include/glfw-3.3.8.bin.WIN64/lib-vc2022;C:/FullIron/include/glfw-3.3.8.bin.WIN64/lib-vc2022/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;opengl32.lib;glu32.lib;gdi32.lib;RelWithDebInfo\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -340,21 +340,41 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\FullIron\src\main.cpp" />
-    <ClCompile Include="C:\FullIron\src\Shader.cpp" />
-    <ClCompile Include="C:\FullIron\src\CLUTTexture.cpp" />
-    <ClCompile Include="C:\FullIron\src\LowResFramebuffer.cpp" />
-    <ClCompile Include="C:\FullIron\src\PaletteManager.cpp" />
-    <ClCompile Include="C:\FullIron\src\ZFightingManager.cpp" />
-    <ClCompile Include="C:\FullIron\src\Cube.cpp" />
-    <ClInclude Include="C:\FullIron\src\Shader.h" />
-    <ClInclude Include="C:\FullIron\src\CLUTTexture.h" />
-    <ClInclude Include="C:\FullIron\src\LowResFramebuffer.h" />
-    <ClInclude Include="C:\FullIron\src\PaletteManager.h" />
-    <ClInclude Include="C:\FullIron\src\GraphicsConfig.h" />
-    <ClInclude Include="C:\FullIron\src\ZFightingManager.h" />
-    <ClInclude Include="C:\FullIron\src\shader_config.h" />
-    <ClInclude Include="C:\FullIron\src\Cube.h" />
+    <ClCompile Include="C:\FullIron\main.cpp" />
+    <ClCompile Include="C:\FullIron\Core\Engine.cpp" />
+    <ClCompile Include="C:\FullIron\Core\ResourceManager.cpp" />
+    <ClCompile Include="C:\FullIron\GameObject\GameObject.cpp" />
+    <ClCompile Include="C:\FullIron\GameObject\Component.cpp" />
+    <ClCompile Include="C:\FullIron\Scene\Scene.cpp" />
+    <ClCompile Include="C:\FullIron\Scene\SceneManager.cpp" />
+    <ClCompile Include="C:\FullIron\Scene\MainScene.cpp" />
+    <ClCompile Include="C:\FullIron\Components\Camera.cpp" />
+    <ClCompile Include="C:\FullIron\Components\Rotator.cpp" />
+    <ClCompile Include="C:\FullIron\Components\CubeRenderer.cpp" />
+    <ClCompile Include="C:\FullIron\Graphics\Shader.cpp" />
+    <ClCompile Include="C:\FullIron\Graphics\CLUTTexture.cpp" />
+    <ClCompile Include="C:\FullIron\Graphics\LowResFramebuffer.cpp" />
+    <ClCompile Include="C:\FullIron\Graphics\PaletteManager.cpp" />
+    <ClCompile Include="C:\FullIron\Graphics\ZFightingManager.cpp" />
+    <ClCompile Include="C:\FullIron\Graphics\Cube.cpp" />
+    <ClInclude Include="C:\FullIron\Core\Engine.h" />
+    <ClInclude Include="C:\FullIron\Core\ResourceManager.h" />
+    <ClInclude Include="C:\FullIron\GameObject\GameObject.h" />
+    <ClInclude Include="C:\FullIron\GameObject\Component.h" />
+    <ClInclude Include="C:\FullIron\Scene\Scene.h" />
+    <ClInclude Include="C:\FullIron\Scene\SceneManager.h" />
+    <ClInclude Include="C:\FullIron\Scene\MainScene.h" />
+    <ClInclude Include="C:\FullIron\Components\Camera.h" />
+    <ClInclude Include="C:\FullIron\Components\Rotator.h" />
+    <ClInclude Include="C:\FullIron\Components\CubeRenderer.h" />
+    <ClInclude Include="C:\FullIron\Graphics\Shader.h" />
+    <ClInclude Include="C:\FullIron\Graphics\CLUTTexture.h" />
+    <ClInclude Include="C:\FullIron\Graphics\LowResFramebuffer.h" />
+    <ClInclude Include="C:\FullIron\Graphics\PaletteManager.h" />
+    <ClInclude Include="C:\FullIron\Graphics\GraphicsConfig.h" />
+    <ClInclude Include="C:\FullIron\Graphics\ZFightingManager.h" />
+    <ClInclude Include="C:\FullIron\Graphics\Cube.h" />
+    <ClInclude Include="C:\FullIron\Graphics\shader_config.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\FullIron\build\ZERO_CHECK.vcxproj">

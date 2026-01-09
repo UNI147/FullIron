@@ -15,8 +15,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(GLFW_DIR "C:/FullIron/include/glfw-3.3.8.bin.WIN64")
-
 # Включаем поддержку статической линковки для MSVC
 if(MSVC)
     add_compile_options(/Zm200)
@@ -38,28 +36,67 @@ endif()
 
 # Исходные файлы
 set(SOURCES
-    src/main.cpp
-    src/Shader.cpp
-#    src/Tetrahedron.cpp
-    src/CLUTTexture.cpp
-    src/LowResFramebuffer.cpp
-    src/PaletteManager.cpp
-    src/ZFightingManager.cpp
-    src/Cube.cpp
+    # Основной файл
+    main.cpp
     
+    # Core
+    Core/Engine.cpp
+    Core/ResourceManager.cpp
+    
+    # GameObject
+    GameObject/GameObject.cpp
+    GameObject/Component.cpp
+    
+    # Scene
+    Scene/Scene.cpp
+    Scene/SceneManager.cpp
+    Scene/MainScene.cpp
+    
+    # Components
+    Components/Camera.cpp
+    Components/Rotator.cpp
+    Components/CubeRenderer.cpp
+    
+    # Graphics
+    Graphics/Shader.cpp
+    Graphics/CLUTTexture.cpp
+    Graphics/LowResFramebuffer.cpp
+    Graphics/PaletteManager.cpp
+    Graphics/ZFightingManager.cpp
+    Graphics/Cube.cpp
+#    Graphics/Tetrahedron.cpp
 )
 
 # Добавляем заголовочные файлы
 set(HEADERS
-    src/Shader.h
-#    src/Tetrahedron.h
-    src/CLUTTexture.h
-    src/LowResFramebuffer.h
-    src/PaletteManager.h
-    src/GraphicsConfig.h
-    src/ZFightingManager.h
-    src/shader_config.h
-    src/Cube.h
+    # Core
+    Core/Engine.h
+    Core/ResourceManager.h
+    
+    # GameObject
+    GameObject/GameObject.h
+    GameObject/Component.h
+    
+    # Scene
+    Scene/Scene.h
+    Scene/SceneManager.h
+    Scene/MainScene.h
+    
+    # Components
+    Components/Camera.h
+    Components/Rotator.h
+    Components/CubeRenderer.h
+    
+    # Graphics
+    Graphics/Shader.h
+    Graphics/CLUTTexture.h
+    Graphics/LowResFramebuffer.h
+    Graphics/PaletteManager.h
+    Graphics/GraphicsConfig.h
+    Graphics/ZFightingManager.h
+    Graphics/Cube.h
+#    Graphics/Tetrahedron.h
+    Graphics/shader_config.h
 )
 
 # Создаем исполняемый файл
@@ -69,44 +106,37 @@ add_executable(FullIron WIN32 ${SOURCES} ${HEADERS})
 if(MSVC)
     target_compile_definitions(FullIron PRIVATE 
         _CRT_SECURE_NO_WARNINGS
-        NOMINMAX  # Отключаем min/max макросы Windows
+        NOMINMAX
+        _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+        GLM_FORCE_RADIANS
     )
-    target_compile_options(FullIron PRIVATE /W4 /EHsc /WX-)
+
+    if(NOT TARGET glm)
+        # Добавьте GLM как external dependency
+        add_subdirectory(include/glm)
+    endif()
+
+    target_compile_options(FullIron PRIVATE 
+        /W4 /EHsc /WX- 
+        /Zm200
+        /bigobj
+    )
     
     # Используем статическую линковку времени выполнения
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 
-# Проверяем и настраиваем GLFW
-if(EXISTS "${GLFW_DIR}")
-    message(STATUS "Found GLFW at: ${GLFW_DIR}")
-    
-    # Добавляем include директории GLFW
-    target_include_directories(FullIron PRIVATE 
-        ${GLFW_DIR}/include
-    )
-    
-    # Добавляем библиотечные директории
-    target_link_directories(FullIron PRIVATE
-        ${GLFW_DIR}/lib-vc2022
-    )
-    
-    # Ссылаемся на библиотеку GLFW
-    target_link_libraries(FullIron glfw3)
-    
-    # Определяем, что используем GLFW
-    target_compile_definitions(FullIron PRIVATE USE_GLFW)
-else()
-    # Если GLFW нет, используем простое OpenGL окно
-    message(STATUS "GLFW not found, using simple OpenGL context")
-    target_compile_definitions(FullIron PRIVATE USE_SIMPLE_OPENGL)
-endif()
-
 # Основные директории включения
 target_include_directories(FullIron PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Core
+    ${CMAKE_CURRENT_SOURCE_DIR}/GameObject
+    ${CMAKE_CURRENT_SOURCE_DIR}/Scene
+    ${CMAKE_CURRENT_SOURCE_DIR}/Components
+    ${CMAKE_CURRENT_SOURCE_DIR}/Graphics
     ${CMAKE_CURRENT_SOURCE_DIR}/glad
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders
 )
 
 # Выходная директория для исполняемого файла
@@ -140,4 +170,11 @@ endif()
 # Создаем выходную директорию если она не существует
 if(NOT EXISTS "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
     file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+endif()
+
+# Для Windows: предотвращаем появление консоли в релизной сборке
+if(WIN32)
+    set_target_properties(FullIron PROPERTIES
+        WIN32_EXECUTABLE TRUE
+    )
 endif()
