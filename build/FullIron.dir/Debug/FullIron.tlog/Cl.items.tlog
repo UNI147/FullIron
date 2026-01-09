@@ -6,6 +6,8 @@ C:\FullIron\GameObject\Component.cpp;C:\FullIron\build\FullIron.dir\Debug\Compon
 C:\FullIron\Scene\Scene.cpp;C:\FullIron\build\FullIron.dir\Debug\Scene.obj
 C:\FullIron\Scene\SceneManager.cpp;C:\FullIron\build\FullIron.dir\Debug\SceneManager.obj
 C:\FullIron\Scene\MainScene.cpp;C:\FullIron\build\FullIron.dir\Debug\MainScene.obj
+C:\FullIron\Scene\ConfigParser.cpp;C:\FullIron\build\FullIron.dir\Debug\ConfigParser.obj
+C:\FullIron\Scene\SceneLoader.cpp;C:\FullIron\build\FullIron.dir\Debug\SceneLoader.obj
 C:\FullIron\Components\Camera.cpp;C:\FullIron\build\FullIron.dir\Debug\Camera.obj
 C:\FullIron\Components\Rotator.cpp;C:\FullIron\build\FullIron.dir\Debug\Rotator.obj
 C:\FullIron\Components\CubeRenderer.cpp;C:\FullIron\build\FullIron.dir\Debug\CubeRenderer.obj

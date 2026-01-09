@@ -348,6 +348,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\FullIron\Scene\Scene.cpp" />
     <ClCompile Include="C:\FullIron\Scene\SceneManager.cpp" />
     <ClCompile Include="C:\FullIron\Scene\MainScene.cpp" />
+    <ClCompile Include="C:\FullIron\Scene\ConfigParser.cpp" />
+    <ClCompile Include="C:\FullIron\Scene\SceneLoader.cpp" />
     <ClCompile Include="C:\FullIron\Components\Camera.cpp" />
     <ClCompile Include="C:\FullIron\Components\Rotator.cpp" />
     <ClCompile Include="C:\FullIron\Components\CubeRenderer.cpp" />
@@ -365,6 +367,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\FullIron\Scene\Scene.h" />
     <ClInclude Include="C:\FullIron\Scene\SceneManager.h" />
     <ClInclude Include="C:\FullIron\Scene\MainScene.h" />
+    <ClInclude Include="C:\FullIron\Scene\ConfigParser.h" />
+    <ClInclude Include="C:\FullIron\Scene\SceneLoader.h" />
     <ClInclude Include="C:\FullIron\Components\Camera.h" />
     <ClInclude Include="C:\FullIron\Components\Rotator.h" />
     <ClInclude Include="C:\FullIron\Components\CubeRenderer.h" />

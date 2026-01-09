@@ -1,0 +1,40 @@
+# Основная сцена демо
+# Формат: [ИмяОбъекта]
+# параметры: ключ=значение
+
+[MainCamera]
+type=camera
+position=0,0,5
+rotation=0,0,0
+isMainCamera=true
+fov=45
+nearPlane=0.1
+farPlane=100
+
+[DemoCube]
+type=cube
+position=0,0,0
+rotation=0,0,0
+scale=1,1,1
+color=1,1,1
+texture=resources/controlpanel.png
+rotationSpeed=30
+
+[Cube2]
+type=cube
+position=2,1,-1
+rotation=45,0,45
+scale=0.5,0.5,0.5
+color=0.8,0.2,0.2
+texture=resources/hoses.png
+rotationSpeed=15
+parent=DemoCube
+
+[Cube3]
+type=cube
+position=-2,1,0
+rotation=0,45,0
+scale=0.7,0.7,0.7
+color=0.2,0.8,0.2
+texture=resources/transformer.png
+rotationSpeed=20

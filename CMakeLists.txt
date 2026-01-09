@@ -51,6 +51,8 @@ set(SOURCES
     Scene/Scene.cpp
     Scene/SceneManager.cpp
     Scene/MainScene.cpp
+    Scene/ConfigParser.cpp
+    Scene/SceneLoader.cpp
     
     # Components
     Components/Camera.cpp
@@ -67,7 +69,7 @@ set(SOURCES
     Graphics/GraphicsSettings.cpp
 )
 
-# В разделе заголовочных файлов
+# В заголовочные файлы
 set(HEADERS
     # Core
     Core/Engine.h
@@ -81,6 +83,8 @@ set(HEADERS
     Scene/Scene.h
     Scene/SceneManager.h
     Scene/MainScene.h
+    Scene/ConfigParser.h
+    Scene/SceneLoader.h
     
     # Components
     Components/Camera.h
@@ -174,6 +178,14 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/resources")
     message(STATUS "Resources copied: ${CMAKE_CURRENT_SOURCE_DIR}/resources -> ${CMAKE_BINARY_DIR}/Debug/resources")
 else()
     message(WARNING "Resources directory not found at: ${CMAKE_CURRENT_SOURCE_DIR}/resources")
+endif()
+
+# Копируем папку сценариев
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/scenes")
+    file(COPY scenes/ DESTINATION ${CMAKE_BINARY_DIR}/Debug/scenes)
+    message(STATUS "Scene configurations copied")
+else()
+    message(WARNING "Scenes directory not found")
 endif()
 
 # Создаем выходную директорию если она не существует
